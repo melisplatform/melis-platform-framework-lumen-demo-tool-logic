@@ -44,7 +44,7 @@
                 @if ($val['cnews_status'])
                     <i class="fa fa-circle text-success"></i>
                 @else
-                    <i class="fa fa-circle text-danger></i>
+                    <i class="fa fa-circle text-danger"></i>
                 @endif
             </td>
             <td>{{ $val['cnews_title'] }}</td>
