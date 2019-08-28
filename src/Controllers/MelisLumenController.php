@@ -5,6 +5,7 @@ namespace MelisPlatformFrameworkLumenDemoToolLogic\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use MelisPlatformFrameworkLumen\MelisServiceProvider;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
 use MelisPlatformFrameworkLumen\MelisServices;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisCoreUser;
@@ -16,11 +17,9 @@ class MelisLumenController extends BaseController
     {
         // get all data in demo table
         $data = MelisDemoAlbumTableLumen::all();
-        /*
-         * get melis cms news service from melis-platform
-         */
+        // get zend service manager
         $zendServiceManager = app('ZendServiceManager');
-        // get melis cms news service
+        // get melis cms news service from melis-platform
         $newsSvc = $zendServiceManager->get('MelisCmsNewsService');
         // get news list in melis platform
         $newsData = $newsSvc->getNewsList();
