@@ -23,6 +23,10 @@
         "zf2",
         "module"
     ],
+    "require" : {
+        "melisplatform/melis-platform-framework-lumen-demo-tool" : "*",
+        "melisplatform/melis-platform-framework-lumen-demo-tool-logic" : "*"
+    },
     "require-dev": {
         "phpunit/phpunit": "~4.8"
     },
