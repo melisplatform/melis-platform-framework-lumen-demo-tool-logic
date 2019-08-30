@@ -26,17 +26,9 @@
     "require" : {
         "melisplatform/melis-platform-framework-lumen" : "*"
     },
-    "require-dev": {
-        "phpunit/phpunit": "~4.8"
-    },
     "autoload": {
         "psr-4": {
-            "MelisPlatformFrameworkLumenDemoToolLogic\\": "src/",
-            "App\\": "thirdparty/mylumen/app/"
-        },
-        "classmap": [
-            "thirdparty/Lumen/database/seeds/",
-            "thirdparty/Lumen/database/factories/"
-        ]
+            "MelisPlatformFrameworkLumenDemoToolLogic\\": "src/"
+        }
     }
 }
