@@ -21,7 +21,7 @@ composer require melisplatform/melis-platform-framework-lumen-demo-tool-logic
 
 To use the service provider , just add the line below in the \bootstrap\app.php file in "Register Service Providers" area.
 ```
-$app->register(\MelisPlatformFrameworkLumen\Providers\LumenDemoToolLogicProvider::class)
+$app->register(\MelisPlatformFrameworkLumenDemoToolLogic\Providers\LumenDemoToolLogicProvider::class)
 ```
 
 
