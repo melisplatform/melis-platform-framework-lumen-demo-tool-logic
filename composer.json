@@ -24,8 +24,7 @@
         "module"
     ],
     "require" : {
-        "melisplatform/melis-platform-framework-lumen-demo-tool" : "*",
-        "melisplatform/melis-platform-framework-lumen-demo-tool-logic" : "*"
+        "melisplatform/melis-platform-framework-lumen" : "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8"
