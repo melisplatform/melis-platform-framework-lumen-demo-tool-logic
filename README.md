@@ -17,6 +17,15 @@ It will automatically be done when using composer
 composer require melisplatform/melis-platform-framework-lumen-demo-tool-logic
 ```
 
+### Service Providers
+
+To use the service provider , just add the line below in the \bootstrap\app.php file in "Register Service Providers" area.
+```
+$app->register(\MelisPlatformFrameworkLumen\Providers\LumenDemoToolLogicProvider::class)
+```
+
+
+
 ### Route
 
 This module has an example of Lumen route . See routes/web.php
