@@ -12,7 +12,9 @@ use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisCoreUser;
 
 class MelisLumenController extends BaseController
 {
-
+    /**
+     * @return \Illuminate\View\View
+     */
     public function renderMelisLumen()
     {
         // get all data in demo table
@@ -20,20 +22,15 @@ class MelisLumenController extends BaseController
         // get zend service manager
         $zendServiceManager = app('ZendServiceManager');
         // get melis cms news service from melis-platform
-        $newsSvc = $zendServiceManager->get('MelisCmsNewsService');
+        /** @var \MelisCore\Model\Tables\MelisLangTable $melisCoreLang */
+        $melisCoreLang = $zendServiceManager->get('MelisCoreTableLang');
         // get news list in melis platform
-        $newsData = $newsSvc->getNewsList();
-        // example of using the melis connection through a Model
-        $melisCoreUsers = MelisCoreUser::all();
-        // example of using melis connection through DB Illuminate\Support\Facades\ class
-        $melisCoreUserConnectionLogs = DB::connection('melis')->table('melis_core_user_connection_date')->get();
+        $coreLangData = $melisCoreLang->fetchAll()->toArray();
 
         // view variables
         $viewVariables = [
             'data' => $data,
-            'newsData' => $newsData,
-            'coreUsersData' => $melisCoreUsers,
-            'coreUserConnectionLogs' => $melisCoreUserConnectionLogs
+            'coreLang' => $coreLangData,
         ];
 
         // getting the view in this module

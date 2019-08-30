@@ -1,4 +1,4 @@
-{
+ {
     "name": "melisplatform/melis-platform-framework-lumen-demo-tool-logic",
     "description": "Melis Platform Framework Lumen Demo Tool Logic module",
     "type": "melisplatform-module",
@@ -21,24 +21,19 @@
         "cms",
         "melis",
         "zf2",
-        "module",
-        "lumen"
+        "module"
     ],
-    "extra": {
-        "module-name": "MelisPlatformFrameworkLumenDemoToolLogic",
-        "dbdeploy": false,
-        "melis-site": false,
-        "melis-module-category": "core"
-    },
-    "require": {
-        "php": ">=7.1.3"
-    },
     "require-dev": {
         "phpunit/phpunit": "~4.8"
     },
     "autoload": {
         "psr-4": {
-            "MelisPlatformFrameworkLumenDemoToolLogic\\": "src/"
-        }
+            "MelisPlatformFrameworkLumenDemoToolLogic\\": "src/",
+            "App\\": "thirdparty/mylumen/app/"
+        },
+        "classmap": [
+            "thirdparty/Lumen/database/seeds/",
+            "thirdparty/Lumen/database/factories/"
+        ]
     }
 }

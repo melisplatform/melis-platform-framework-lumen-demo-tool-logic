@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 class MelisDemoAlbumTableLumen extends Model
 {
     /**
+     * Connection
+     */
+    protected $connection = "melis";
+    /**
      * The table associated with the model.
      *
      * @var $table
