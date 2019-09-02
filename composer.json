@@ -24,7 +24,8 @@
         "module"
     ],
     "require" : {
-        "melisplatform/melis-platform-framework-lumen" : "*"
+        "melisplatform/melis-platform-framework-lumen" : "*",
+        "melisplatform/melis-platform-framework-lumen-demo-tool" : "*"
     },
     "autoload": {
         "psr-4": {
