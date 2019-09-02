@@ -1,5 +1,4 @@
 <?php
-use \Illuminate\Support\Facades\Route;
 use  \MelisPlatformFrameworkLumenDemoToolLogic\Controllers\MelisLumenController;
 /*
 |--------------------------------------------------------------------------
@@ -12,4 +11,4 @@ use  \MelisPlatformFrameworkLumenDemoToolLogic\Controllers\MelisLumenController;
 |
 */
 
-Route::get('/lumen',  MelisLumenController::class ."@renderMelisLumen");
+Route::get('/melis/lumen',  MelisLumenController::class ."@renderMelisLumen");
