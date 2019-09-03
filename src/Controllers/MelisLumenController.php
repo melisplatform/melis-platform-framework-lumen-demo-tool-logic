@@ -26,11 +26,13 @@ class MelisLumenController extends BaseController
         $melisCoreLang = $zendServiceManager->get('MelisCoreTableLang');
         // get news list in melis platform
         $coreLangData = $melisCoreLang->fetchAll()->toArray();
+        $textHeading1 = $zendServiceManager->get('translator')->translate('tr_melis_lumen_demo_tool_sample_1_heading');
+        $textHeading2 = $zendServiceManager->get('translator')->translate('tr_melis_lumen_demo_tool_sample_2_heading');
 
         // view variables
         $viewVariables = [
             'data' => $data,
-            'coreLang' => $coreLangData,
+            'coreLang' => $coreLangData
         ];
 
         // getting the view in this module

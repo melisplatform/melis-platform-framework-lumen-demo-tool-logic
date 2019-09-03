@@ -14,13 +14,13 @@
     }
 </style>
 <h3><strong>Sample 1.</strong> melis_demo_album_table_lumen sample data</h3>
-<p>Sample of getting the data from table melis_demo_album_table_lumen using typical <strong>Lumen</strong> model</p>
+<p>{{ app('translator')->translate('tr_melis_lumen_demo_tool_sample_1_heading')  }}</p>
 <table class='table'>
     <tr class="tr-table-header">
         <th>Id</th>
-        <th>Name</th>
+        <th> {{ app('translator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
         <th>Date</th>
-        <th>Song number</th>
+        <th> {{ app('translator')->translate('tr_melis_lumen_table1_heading_songs') }}</th>
     </tr>
     @foreach ($data as $idx => $val)
         <tr>
@@ -33,18 +33,18 @@
 </table>
 <br>
 <h3><strong>Sample 2.</strong> MelisServiceProvider class</h3>
-<p class="display-2">Sample of rendering the <mark>Melis back-office language data</mark>from a MelisServiceProvider class</p>
+<p>{{ app('translator')->translate('tr_melis_lumen_demo_tool_sample_2_heading')  }}</p>
 <table class='table'>
     <tr class='tr-table-header' >
         <th>ID</th>
+        <th> {{ app('translator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
         <th>Locale</th>
-        <th>Lang name</th>
     </tr>
     @foreach ($coreLang as $idx => $val)
         <tr>
             <td>{{ $val['lang_id'] }}</td>
-            <td>{{ $val['lang_locale'] }}</td>
             <td>{{ $val['lang_name'] }}</td>
+            <td>{{ $val['lang_locale'] }}</td>
         </tr>
     @endforeach
 </table>
