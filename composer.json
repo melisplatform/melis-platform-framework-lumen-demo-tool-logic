@@ -29,19 +29,19 @@
     },
     "autoload": {
         "classmap": [
-            "../../../thirdparty/Lumen/database/seeds",
-            "../../../thirdparty/Lumen/database/factories"
+            "thirdparty/Lumen/database/seeds",
+            "thirdparty/Lumen/database/factories"
         ],
         "psr-4": {
             "MelisPlatformFrameworkLumenDemoToolLogic\\": "src/",
             "App\\" : [
-                "../../../thirdparty/Lumen/app/"
+                "thirdparty/Lumen/app/"
             ]
         }
     },
      "autoload-dev": {
          "classmap": [
-             "../../../thirdparty/Lumen/tests/"
+             "thirdparty/Lumen/tests/"
          ]
      }
 }
