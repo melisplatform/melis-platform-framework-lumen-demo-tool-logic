@@ -29,7 +29,7 @@
     },
     "autoload": {
         "classmap": [
-            "thirdparty/Lumen/database/seeds",
+            "../../thirdparty/Lumen/database/seeds",
             "../../thirdparty/Lumen/database/factories"
         ],
         "psr-4": {
