@@ -32,7 +32,7 @@ This module has an example of Lumen route . See routes/web.php
 
 ```
 
-Route::get('/lumen', MelisLumenController::class ."@renderMelisLumen");
+Route::get('/melis/lumen-list', MelisLumenController::class ."@renderMelisLumen");
 ```
 
 ## Authors

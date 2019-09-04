@@ -11,4 +11,4 @@ use  \MelisPlatformFrameworkLumenDemoToolLogic\Controllers\MelisLumenController;
 |
 */
 
-Route::get('/melis/lumen',  MelisLumenController::class ."@renderMelisLumen");
+Route::get('/melis/lumen-list',  MelisLumenController::class ."@renderMelisLumen");
