@@ -13,7 +13,7 @@
         box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
     }
 </style>
-<h3><strong>Sample 1.</strong> melis_demo_album_table_lumen sample data</h3>
+<h3>{{ app('translator')->translate('tr_melis_lumen_table1_heading_songs_head_album') }}</h3>
 <p>{{ app('translator')->translate('tr_melis_lumen_demo_tool_sample_1_heading')  }}</p>
 <table class='table'>
     <tr class="tr-table-header">
@@ -32,7 +32,7 @@
     @endforeach
 </table>
 <br>
-<h3><strong>Sample 2.</strong> MelisServiceProvider class</h3>
+<h3>{{ app('translator')->translate('tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
 <p>{{ app('translator')->translate('tr_melis_lumen_demo_tool_sample_2_heading')  }}</p>
 <table class='table'>
     <tr class='tr-table-header' >
