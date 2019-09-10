@@ -24,8 +24,8 @@
         "module"
     ],
     "require" : {
-        "melisplatform/melis-platform-framework-lumen" : "*",
-        "melisplatform/melis-platform-framework-lumen-demo-tool" : "*"
+        "melisplatform/melis-platform-framework-lumen" : "^3.1",
+        "melisplatform/melis-platform-framework-lumen-demo-tool" : "^3.1"
     },
     "autoload": {
         "classmap": [
