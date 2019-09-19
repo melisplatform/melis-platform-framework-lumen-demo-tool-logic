@@ -13,8 +13,8 @@
         box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
     }
 </style>
+<h3>{{ app('translator')->translate('tr_melis_lumen_table1_heading_songs_head_album') }}</h3>
 <p>{{ app('translator')->translate('tr_melis_lumen_demo_tool_sample_1_heading')  }}</p>
-
 <table class='table'>
     <tr class="tr-table-header">
         <th>Id</th>
@@ -28,6 +28,23 @@
             <td>{{ $val->alb_name }}</td>
             <td>{{ $val->alb_date }}</td>
             <td>{{ $val->alb_song_num}}</td>
+        </tr>
+    @endforeach
+</table>
+<br>
+<h3>{{ app('translator')->translate('tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
+<p>{{ app('translator')->translate('tr_melis_lumen_demo_tool_sample_2_heading')  }}</p>
+<table class='table'>
+    <tr class='tr-table-header' >
+        <th>ID</th>
+        <th> {{ app('translator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
+        <th>Locale</th>
+    </tr>
+    @foreach ($coreLang as $idx => $val)
+        <tr>
+            <td>{{ $val['lang_id'] }}</td>
+            <td>{{ $val['lang_name'] }}</td>
+            <td>{{ $val['lang_locale'] }}</td>
         </tr>
     @endforeach
 </table>
