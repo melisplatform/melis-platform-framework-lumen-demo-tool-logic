@@ -12,6 +12,7 @@ use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisCoreUser;
 
 class MelisLumenController extends BaseController
 {
+    private $viewNamespace = "MelisPlatformFrameworkLumenDemoToolLogic";
     /**
      * @return \Illuminate\View\View
      */
@@ -36,7 +37,18 @@ class MelisLumenController extends BaseController
         ];
 
         // getting the view in this module
-        return view('MelisPlatformFrameworkLumenDemoToolLogic::melis-lumen', $viewVariables);
+        return view("$this->viewNamespace::melis-lumen", $viewVariables);
+    }
+
+    public function renderMelisPugin()
+    {
+        // getting the view in this module
+        return view("$this->viewNamespace::melis-plugin", ['data' => MelisDemoAlbumTableLumen::all()]);
+
+    }
+    public function renderAddLumenAlbum()
+    {
+        return view("$this->viewNamespace::render-add-lumen");
     }
 
 }
