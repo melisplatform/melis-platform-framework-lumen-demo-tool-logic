@@ -28,10 +28,6 @@
         "melisplatform/melis-platform-framework-lumen-demo-tool" : "^3.1"
     },
     "autoload": {
-        "classmap": [
-            "../../../thirdparty/Lumen/database/seeds",
-            "../../../thirdparty/Lumen/database/factories"
-        ],
         "psr-4": {
             "MelisPlatformFrameworkLumenDemoToolLogic\\": "src/",
             "App\\" : [
