@@ -1,26 +1,18 @@
-<style>
-    .tr-table-header {
-        background: #e61c23;
-        color:#fff;
-        line-height: normal;
-    }
-    .display-2 {
-        font-size:18px;
-    }
-    .circle-image {
-        border-radius: 100%;
-        border: 2px solid #fff;
-        box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
-    }
-</style>
-<h3>{{ app('translator')->translate('tr_melis_lumen_table1_heading_songs_head_album') }}</h3>
-<p>{{ app('translator')->translate('tr_melis_lumen_demo_tool_sample_1_heading')  }}</p>
+<?php
+    $namespace = 'MelisPlatformFrameworkLumenDemoToolLogic';
+?>
+<!-- header area -->
+@include($namespace. "::lumen-tool/tool-header")
+{{-- filter area --}}
+@include($namespace. "::lumen-tool/tool-table-filters")
+{{-- table content--}}
 <table class='table'>
     <tr class="tr-table-header">
         <th>Id</th>
-        <th> {{ app('translator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
+        <th> {{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
         <th>Date</th>
-        <th> {{ app('translator')->translate('tr_melis_lumen_table1_heading_songs') }}</th>
+        <th> {{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_songs') }}</th>
+        <th class="text-center"> Action </th>
     </tr>
     @foreach ($data as $idx => $val)
         <tr>
@@ -28,23 +20,8 @@
             <td>{{ $val->alb_name }}</td>
             <td>{{ $val->alb_date }}</td>
             <td>{{ $val->alb_song_num}}</td>
+            <td class=" dtActionCls text-center" ><div><a href="#modal-template-manager-actions" data-toggle="modal" class="btn btn-success btnEditTemplates" title="Edit"> <i class="fa fa-pencil"> </i> </a> <a class="btn btn-danger btnDelTemplate" title="Delete"> <i class="fa fa-times"> </i> </a></div></td>
         </tr>
     @endforeach
 </table>
-<br>
-<h3>{{ app('translator')->translate('tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
-<p>{{ app('translator')->translate('tr_melis_lumen_demo_tool_sample_2_heading')  }}</p>
-<table class='table'>
-    <tr class='tr-table-header' >
-        <th>ID</th>
-        <th> {{ app('translator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
-        <th>Locale</th>
-    </tr>
-    @foreach ($coreLang as $idx => $val)
-        <tr>
-            <td>{{ $val['lang_id'] }}</td>
-            <td>{{ $val['lang_name'] }}</td>
-            <td>{{ $val['lang_locale'] }}</td>
-        </tr>
-    @endforeach
-</table>
+

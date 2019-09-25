@@ -14,4 +14,9 @@ use  \MelisPlatformFrameworkLumenDemoToolLogic\Controllers\MelisLumenController;
 
 Route::get('/melis/lumen-list',  MelisLumenController::class ."@renderMelisLumen");
 Route::get('/melis/lumen-plugin',  MelisLumenController::class ."@renderMelisPugin");
-Route::get('/melis/get-album-form',  MelisLumenController::class ."@renderAddLumenAlbum");
+
+Route::get('/melis/lumen-get-album-form', [
+    'uses' => MelisLumenController::class ."@toolModalContent",
+]);
+
+Route::post('/melis/save-lumen-album' , MelisLumenController::class . "@saveLumenAlbum");

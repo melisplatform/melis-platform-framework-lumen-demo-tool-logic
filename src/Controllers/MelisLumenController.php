@@ -4,6 +4,7 @@ namespace MelisPlatformFrameworkLumenDemoToolLogic\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use MelisPlatformFrameworkLumen\MelisServiceProvider;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
@@ -19,7 +20,7 @@ class MelisLumenController extends BaseController
     public function renderMelisLumen()
     {
         // get all data in demo table
-        $data = MelisDemoAlbumTableLumen::all();
+        $data = MelisDemoAlbumTableLumen::query()->orderBy('alb_id','desc')->get();
         // get zend service manager
         $zendServiceManager = app('ZendServiceManager');
         // get melis cms news service from melis-platform
@@ -40,15 +41,60 @@ class MelisLumenController extends BaseController
         return view("$this->viewNamespace::melis-lumen", $viewVariables);
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
     public function renderMelisPugin()
     {
         // getting the view in this module
         return view("$this->viewNamespace::melis-plugin", ['data' => MelisDemoAlbumTableLumen::all()]);
 
     }
-    public function renderAddLumenAlbum()
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function toolModalContent()
     {
-        return view("$this->viewNamespace::render-add-lumen");
+        return view("$this->viewNamespace::lumen-tool/tool-modal-content");
+    }
+
+    /**
+     * @return array
+     */
+    public function saveLumenAlbum()
+    {
+        $errors = [];
+        $success = false;
+        $message = "Failed";
+        $title = "Lumen";
+        $requestParams = app('request')->request->all();
+
+        // validate inputed data
+        $validor = Validator::make($requestParams,[
+            'alb_name' => 'required'
+        ]);
+        // check for errors
+        if ($validor->fails()) {
+            $errors = $validor->errors()->getMessages();
+        }
+
+        if (empty($errors)) {
+            $success = true;
+            // include date
+            $requestParams['alb_date'] = date('Y-m-d h:i:s');
+            // save
+            if(MelisDemoAlbumTableLumen::query()->insert($requestParams)) {
+                $message = "Successfully saved";
+            }
+        }
+
+        return [
+            'errors' => $errors,
+            'success' => $success,
+            'textMessage' => $message,
+            'textTitle' => $title
+        ];
     }
 
 }
