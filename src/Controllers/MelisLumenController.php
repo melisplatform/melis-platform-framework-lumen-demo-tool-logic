@@ -19,8 +19,15 @@ class MelisLumenController extends BaseController
      */
     public function renderMelisLumen()
     {
+        $request = app('request');
+        $start   = $request->get('start') ?? 0;
+        $limit   = $request->get('limit') ?? 5;
+        $search   = $request->get('search') ?? null;
+        $orderBy   = $request->get('order-by') ?? 'alb_id';
+        $orderDir   = $request->get('order-direction') ?? 'desc';
         // get all data in demo table
-        $data = MelisDemoAlbumTableLumen::query()->orderBy('alb_id','desc')->get();
+        $data = $this->getLumenAlbumTableData();
+
         // get zend service manager
         $zendServiceManager = app('ZendServiceManager');
         // get melis cms news service from melis-platform
@@ -34,11 +41,18 @@ class MelisLumenController extends BaseController
         // view variables
         $viewVariables = [
             'data' => $data,
-            'coreLang' => $coreLangData
+            'coreLang' => $coreLangData,
+            'tableConfig' => [
+                'start' => $start,
+                'limit' => $limit,
+                'search' => $search,
+                'orderBy' => $orderBy,
+                'orderDir' => $orderDir
+            ]
         ];
 
         // getting the view in this module
-        return view("$this->viewNamespace::melis-lumen", $viewVariables);
+        return view("$this->viewNamespace::lumen-tool/tool-main-content", $viewVariables);
     }
 
     /**
@@ -47,7 +61,7 @@ class MelisLumenController extends BaseController
     public function renderMelisPugin()
     {
         // getting the view in this module
-        return view("$this->viewNamespace::melis-plugin", ['data' => MelisDemoAlbumTableLumen::all()]);
+        return view("$this->viewNamespace::plugins/melis-plugin", ['data' => MelisDemoAlbumTableLumen::all()]);
 
     }
 
@@ -95,6 +109,35 @@ class MelisLumenController extends BaseController
             'textMessage' => $message,
             'textTitle' => $title
         ];
+    }
+
+    /**
+     * @param int $start
+     * @param int $limit
+     * @param string $search
+     * @param string $oderBy
+     * @param string $orderDirection
+     * @return array
+     */
+    public function getLumenAlbumTableData($start = 0,$limit = 5,$search = "",$orderBy = 'alb_id',$oderDirection = 'desc')
+    {
+        $query = MelisDemoAlbumTableLumen::query();
+
+        if (! empty($start)) {
+            $query->skip($start);
+        }
+        if (! empty($limit)) {
+            $query->take($limit);
+        }
+        if (! empty($orderBy)) {
+            $query->orderBy($orderBy, $oderDirection ?? 'desc');
+        }
+        if(! empty($search)) {
+            $query->where('alb_name','like','%' . $search . '%');
+        }
+
+
+        return $query->get();
     }
 
 }

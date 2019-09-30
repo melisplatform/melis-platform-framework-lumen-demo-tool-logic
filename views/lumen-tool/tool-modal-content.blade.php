@@ -15,7 +15,7 @@
                                 <div class="form-group">
                                     <label for="alb_name">
                                         Name
-                                        <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement="left" data-original-title="Name of the album"></i>
+                                        <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="Name of the album"></i>
                                     </label>
                                     <input type="text" id="alb_name" class="form-control" name="alb_name">
                                 </div>
@@ -28,7 +28,7 @@
                                 </div>
                                 <br>
                                 <div align="right">
-                                    <button data-dismiss="modal" class="btn btn-danger pull-left" ><i class="fa fa-times"></i> <?php echo app('ZendTranslator')->translate('tr_meliscore_common_close')?></button>
+                                    <button data-dismiss="modal" class="btn btn-danger pull-left lumen-modal-close" ><i class="fa fa-times"></i> <?php echo app('ZendTranslator')->translate('tr_meliscore_common_close')?></button>
                                     <button type="submit" class="btn btn-success" id="btn-save-lumen-album"><i class="fa fa-save"></i>  <?php echo app('ZendTranslator')->translate('tr_meliscore_tool_gen_save')?></button>
                                 </div>
                                 <div class="clearfix"></div>

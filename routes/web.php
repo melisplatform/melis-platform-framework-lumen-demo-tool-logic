@@ -20,3 +20,9 @@ Route::get('/melis/lumen-get-album-form', [
 ]);
 
 Route::post('/melis/save-lumen-album' , MelisLumenController::class . "@saveLumenAlbum");
+/**
+ * get data table for lumen
+ */
+Route::get('/melis/lumen-get-table-data', MelisLumenController::class . "@getLumenAlbumTableData");
+
+
