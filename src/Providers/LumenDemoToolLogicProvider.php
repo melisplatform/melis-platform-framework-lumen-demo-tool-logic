@@ -2,6 +2,7 @@
 namespace MelisPlatformFrameworkLumenDemoToolLogic\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use MelisPlatformFrameworkLumenDemoToolLogic\Serivce\MelisPlatformFrameworkLumenDemoToolLogicService;
 
 class LumenDemoToolLogicProvider extends ServiceProvider
 {

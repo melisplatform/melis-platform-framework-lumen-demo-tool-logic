@@ -19,7 +19,9 @@ Route::get('/melis/lumen-get-album-form', [
     'uses' => MelisLumenController::class ."@toolModalContent",
 ]);
 
-Route::post('/melis/save-lumen-album' , MelisLumenController::class . "@saveLumenAlbum");
+Route::post('/melis/save-lumen-album' , MelisLumenController::class . "@saveAlbum");
+Route::get('/melis/edit-lumen-album' , MelisLumenController::class . "@editLumenAlbum");
+Route::post('/melis/delete-lumen-album' , MelisLumenController::class . "@deleteAlbum");
 /**
  * get data table for lumen
  */

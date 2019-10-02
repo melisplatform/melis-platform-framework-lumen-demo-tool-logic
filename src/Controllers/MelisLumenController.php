@@ -6,10 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use MelisPlatformFrameworkLumen\MelisServiceProvider;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
-use MelisPlatformFrameworkLumen\MelisServices;
-use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisCoreUser;
+use mysql_xdevapi\Exception;
+use MelisPlatformFrameworkLumenDemoToolLogic\Service\MelisPlatformFrameworkLumenDemoToolLogicService as LumenDemoToolLogicService;
 
 class MelisLumenController extends BaseController
 {
@@ -19,36 +18,9 @@ class MelisLumenController extends BaseController
      */
     public function renderMelisLumen()
     {
-        $request = app('request');
-        $start   = $request->get('start') ?? 0;
-        $limit   = $request->get('limit') ?? 5;
-        $search   = $request->get('search') ?? null;
-        $orderBy   = $request->get('order-by') ?? 'alb_id';
-        $orderDir   = $request->get('order-direction') ?? 'desc';
-        // get all data in demo table
-        $data = $this->getLumenAlbumTableData();
-
-        // get zend service manager
-        $zendServiceManager = app('ZendServiceManager');
-        // get melis cms news service from melis-platform
-        /** @var \MelisCore\Model\Tables\MelisLangTable $melisCoreLang */
-        $melisCoreLang = $zendServiceManager->get('MelisCoreTableLang');
-        // get news list in melis platform
-        $coreLangData = $melisCoreLang->fetchAll()->toArray();
-        $textHeading1 = $zendServiceManager->get('translator')->translate('tr_melis_lumen_demo_tool_sample_1_heading');
-        $textHeading2 = $zendServiceManager->get('translator')->translate('tr_melis_lumen_demo_tool_sample_2_heading');
-
         // view variables
         $viewVariables = [
-            'data' => $data,
-            'coreLang' => $coreLangData,
-            'tableConfig' => [
-                'start' => $start,
-                'limit' => $limit,
-                'search' => $search,
-                'orderBy' => $orderBy,
-                'orderDir' => $orderDir
-            ]
+            'data' =>  MelisDemoAlbumTableLumen::query()->orderBy('alb_id','desc')->get()
         ];
 
         // getting the view in this module
@@ -70,39 +42,83 @@ class MelisLumenController extends BaseController
      */
     public function toolModalContent()
     {
-        return view("$this->viewNamespace::lumen-tool/tool-modal-content");
+        $albumId = app('request')->request->get('albumId') ?? null;
+        $data = [];
+        if ($albumId){
+            $data = MelisDemoAlbumTableLumen::query()->find($albumId);
+        }
+
+        return view("$this->viewNamespace::lumen-tool/tool-modal-content",['data' => $data]);
     }
 
     /**
+     * Create or update an album
+     *
      * @return array
      */
-    public function saveLumenAlbum()
+    public function saveAlbum()
     {
+        // errors
         $errors = [];
+        // success status
         $success = false;
-        $message = "Failed";
-        $title = "Lumen";
+        // default message
+        $message = "Unable to saved";
+        // default title
+        $title = "Lumen demo tool album";
+        // get all request parameters
         $requestParams = app('request')->request->all();
-
+        // log type for melis logging system
+        $logTypeCode = "LUMEN_DEMO_TOOL_SAVE";
+        // id
+        $id = null;
         // validate inputed data
-        $validor = Validator::make($requestParams,[
-            'alb_name' => 'required'
+        $validator = Validator::make($requestParams,[
+            'alb_name' => 'required|integer',
+            'alb_song_num' => 'integer'
+        ],[
+            'alb_song_num.integer' => 'Hoy ! Dapat integer',
+            'alb_name.required' => 'Hoy ! Requuired oy',
+        ],[
+            'alb_name' => 'Name'
         ]);
-        // check for errors
-        if ($validor->fails()) {
-            $errors = $validor->errors()->getMessages();
+        // get error messages
+        if ($validator->fails()) {
+            $errors = $validator->errors()->getMessages();
         }
-
+        // Lumen demo tool logic service
+        $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
+        // check for errors
         if (empty($errors)) {
+            // set to true
             $success = true;
             // include date
             $requestParams['alb_date'] = date('Y-m-d h:i:s');
-            // save
-            if(MelisDemoAlbumTableLumen::query()->insert($requestParams)) {
+            // check for id
+            if (isset($requestParams['alb_id']) && ! empty($requestParams['alb_id'])) {
+                // set id
+                $id = $requestParams['alb_id'];
+                unset($requestParams['alb_id']);
+                // update album
+                $lumenDemoToolLogicSvc->saveAlbumData($requestParams,$id);
+                // set message
+                $message = "Successfully updated";
+                // set log type code
+                $logTypeCode = "LUMEN_DEMO_TOOL_UPDATE";
+            } else {
+                // save album data
+                $id = $lumenDemoToolLogicSvc->saveAlbumData($requestParams);
+                // set message
                 $message = "Successfully saved";
             }
         }
 
+        // add to melis flash messenger
+        $lumenDemoToolLogicSvc->addToFlashMessenger($title, $message);
+        // save into melis logs
+        $lumenDemoToolLogicSvc->saveLogs($title, $message, $success, $logTypeCode, $id);
+
+        // return required data
         return [
             'errors' => $errors,
             'success' => $success,
@@ -112,32 +128,44 @@ class MelisLumenController extends BaseController
     }
 
     /**
-     * @param int $start
-     * @param int $limit
-     * @param string $search
-     * @param string $oderBy
-     * @param string $orderDirection
+     * Delete an album
+     *
      * @return array
      */
-    public function getLumenAlbumTableData($start = 0,$limit = 5,$search = "",$orderBy = 'alb_id',$oderDirection = 'desc')
+    public function deleteAlbum()
     {
-        $query = MelisDemoAlbumTableLumen::query();
+        // errors
+        $errors = [];
+        // success status
+        $success = false;
+        // default message
+        $message = "Unable to saved";
+        // default title
+        $title = "Lumen demo tool album";
+        // get all request parameters
+        $requestParams = app('request')->request->all();
+        // log type for melis logging system
+        $logTypeCode = "LUMEN_DEMO_TOOL_DELETE";
+        // id
+        $albumId = app('request')->request->get('albumId');
 
-        if (! empty($start)) {
-            $query->skip($start);
-        }
-        if (! empty($limit)) {
-            $query->take($limit);
-        }
-        if (! empty($orderBy)) {
-            $query->orderBy($orderBy, $oderDirection ?? 'desc');
-        }
-        if(! empty($search)) {
-            $query->where('alb_name','like','%' . $search . '%');
+        if (empty($albumId)) {
+            throw new Exception('No album id');
         }
 
+        // Lumen demo tool logic service
+        $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
 
-        return $query->get();
+        if ($lumenDemoToolLogicSvc->deleteAlbum($albumId)) {
+            $success = true;
+            $message = "Successfully deleted";
+        }
+
+        return [
+            'success' => $success,
+            'error'   => $error,
+            'textMessage' => $message,
+            'textTitle' => $title
+        ];
     }
-
 }
