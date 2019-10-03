@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use MelisCore\Service\MelisCoreFlashMessengerService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
 use mysql_xdevapi\Exception;
 use MelisPlatformFrameworkLumenDemoToolLogic\Service\MelisPlatformFrameworkLumenDemoToolLogicService as LumenDemoToolLogicService;
@@ -63,37 +64,54 @@ class MelisLumenController extends BaseController
         // success status
         $success = false;
         // default message
-        $message = "Unable to saved";
+        $message = "tr_melis_lumen_notification_message_save_ko";
         // default title
-        $title = "Lumen demo tool album";
+        $title = "tr_melis_lumen_notification_title";
         // get all request parameters
         $requestParams = app('request')->request->all();
         // log type for melis logging system
         $logTypeCode = "LUMEN_DEMO_TOOL_SAVE";
+        // flash messages icon
+        $icon = MelisCoreFlashMessengerService::WARNING;
         // id
         $id = null;
-        // validate inputed data
+        // make a validator for the request parameters
         $validator = Validator::make($requestParams,[
-            'alb_name' => 'required|integer',
+            'alb_name' => 'required|regex:/^[a-zA-Z0-9\s]*$/',
             'alb_song_num' => 'integer'
         ],[
-            'alb_song_num.integer' => 'Hoy ! Dapat integer',
-            'alb_name.required' => 'Hoy ! Requuired oy',
-        ],[
-            'alb_name' => 'Name'
+            'alb_song_num.integer' => app('ZendTranslator')->translate('tr_melis_lumen_notification_songs_not_int'),
+            'alb_name.required' => app('ZendTranslator')->translate('tr_melis_lumen_notification_empty_name'),
+            'alb_name.regex' => app('ZendTranslator')->translate('tr_melis_lumen_notification_empty_name_regex'),
         ]);
-        // get error messages
+        // validate inputed data
         if ($validator->fails()) {
-            $errors = $validator->errors()->getMessages();
+            $errors = $validator->errors()->toArray();
+            // add translation to keys
+            $keyTranslations = [
+                'alb_name' => [
+                    'label' => app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_name')
+                ],
+                'alb_song_num' => [
+                    'label' => app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_songs')
+                ]
+            ];
+            // asigning label
+            foreach ($errors as $errorKey => $errorVal) {
+                if (array_key_exists($errorKey,$keyTranslations)) {
+                    $errors[$errorKey]['label'] = $keyTranslations[$errorKey]['label'];
+                }
+            }
         }
+
         // Lumen demo tool logic service
         $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
         // check for errors
         if (empty($errors)) {
             // set to true
             $success = true;
-            // include date
-            $requestParams['alb_date'] = date('Y-m-d h:i:s');
+            // set info icon for flash messeages
+            $icon = MelisCoreFlashMessengerService::INFO;
             // check for id
             if (isset($requestParams['alb_id']) && ! empty($requestParams['alb_id'])) {
                 // set id
@@ -102,19 +120,21 @@ class MelisLumenController extends BaseController
                 // update album
                 $lumenDemoToolLogicSvc->saveAlbumData($requestParams,$id);
                 // set message
-                $message = "Successfully updated";
+                $message = "tr_melis_lumen_notification_message_upate_ok";
                 // set log type code
                 $logTypeCode = "LUMEN_DEMO_TOOL_UPDATE";
             } else {
+                // include date
+                $requestParams['alb_date'] = date('Y-m-d h:i:s');
                 // save album data
                 $id = $lumenDemoToolLogicSvc->saveAlbumData($requestParams);
                 // set message
-                $message = "Successfully saved";
+                $message = "tr_melis_lumen_notification_message_save_ok";
             }
         }
 
         // add to melis flash messenger
-        $lumenDemoToolLogicSvc->addToFlashMessenger($title, $message);
+        $lumenDemoToolLogicSvc->addToFlashMessenger($title, $message,$icon);
         // save into melis logs
         $lumenDemoToolLogicSvc->saveLogs($title, $message, $success, $logTypeCode, $id);
 
@@ -122,8 +142,8 @@ class MelisLumenController extends BaseController
         return [
             'errors' => $errors,
             'success' => $success,
-            'textMessage' => $message,
-            'textTitle' => $title
+            'textMessage' => app('ZendTranslator')->translate($message),
+            'textTitle' => app('ZendTranslator')->translate($title)
         ];
     }
 
@@ -141,11 +161,13 @@ class MelisLumenController extends BaseController
         // default message
         $message = "Unable to saved";
         // default title
-        $title = "Lumen demo tool album";
+        $title = "tr_melis_lumen_notification_title";
         // get all request parameters
         $requestParams = app('request')->request->all();
         // log type for melis logging system
         $logTypeCode = "LUMEN_DEMO_TOOL_DELETE";
+        // flash messages icon
+        $icon = MelisCoreFlashMessengerService::WARNING;
         // id
         $albumId = app('request')->request->get('albumId');
 
@@ -158,14 +180,20 @@ class MelisLumenController extends BaseController
 
         if ($lumenDemoToolLogicSvc->deleteAlbum($albumId)) {
             $success = true;
+            $icon = MelisCoreFlashMessengerService::INFO;
             $message = "Successfully deleted";
         }
 
+        // add to melis flash messenger
+        $lumenDemoToolLogicSvc->addToFlashMessenger($title, $message,$icon);
+        // save into melis logs
+        $lumenDemoToolLogicSvc->saveLogs($title, $message, $success, $logTypeCode, $albumId);
+
         return [
             'success' => $success,
-            'error'   => $error,
-            'textMessage' => $message,
-            'textTitle' => $title
+            'error'   => $errors,
+            'textMessage' => app('ZendTranslator')->translate($message),
+            'textTitle' => app('ZendTranslator')->translate($title)
         ];
     }
 }

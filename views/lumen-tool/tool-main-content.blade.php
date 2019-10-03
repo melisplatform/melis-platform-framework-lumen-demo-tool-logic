@@ -4,8 +4,6 @@
 ?>
 <!-- header area -->
 @include($namespace. "::lumen-tool/tool-header")
-{{-- filter area --}}
- @include($namespace. "::lumen-tool/tool-table-filters")
 {{-- table content--}}
 <table class='table'>
     <tr class="tr-table-header">

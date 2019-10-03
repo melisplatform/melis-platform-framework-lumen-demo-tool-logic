@@ -20,7 +20,7 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
             $id = MelisDemoAlbumTableLumen::query()->insertGetId($data);
 
         } else {
-            $success = MelisDemoAlbumTableLumen::query()->where('alb_id',$data)->update($data);
+            $success = MelisDemoAlbumTableLumen::query()->where('alb_id',$id)->update($data);
         }
 
         return [
@@ -39,7 +39,7 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
 
         if ($id) {
             // delete album
-            $success = MelisDemoAlbumTableLumen::query()->where('alb_id',$data)->delete();
+            $success = MelisDemoAlbumTableLumen::query()->where('alb_id',$id)->delete();
         }
 
         return [

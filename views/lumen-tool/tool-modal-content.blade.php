@@ -17,7 +17,7 @@
                             <form action="POST" name="lumen_demo_tool_add_album" id="lumen_demo_tool_add_album">
                                 <div class="form-group">
                                     <label for="alb_name">
-                                        Name
+                                        Name *
                                         <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="Name of the album"></i>
                                     </label>
                                     <input type="text" id="alb_name" class="form-control" name="alb_name" value="{{ $data->alb_name ?? null }}">
@@ -36,7 +36,7 @@
                                             Date
                                             <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="Date"></i>
                                         </label>
-                                        <input type="text" id="alb_date" class="form-control" name="alb_date" value="{{ $data->alb_date }}" readonly>
+                                        <input type="text" id="alb_date" class="form-control" name="alb_date" value="{{ $data->alb_date }}" disabled>
                                     </div>
                                 <?php } ?>
                                 <br>
