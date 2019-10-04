@@ -18,6 +18,7 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
         if (empty($id)){
             // insert new row
             $id = MelisDemoAlbumTableLumen::query()->insertGetId($data);
+            $success = true;
 
         } else {
             $success = MelisDemoAlbumTableLumen::query()->where('alb_id',$id)->update($data);

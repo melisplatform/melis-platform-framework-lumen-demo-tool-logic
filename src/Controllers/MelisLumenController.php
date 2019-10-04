@@ -116,13 +116,14 @@ class MelisLumenController extends BaseController
             if (isset($requestParams['alb_id']) && ! empty($requestParams['alb_id'])) {
                 // set id
                 $id = $requestParams['alb_id'];
+                // remove id from the parameters
                 unset($requestParams['alb_id']);
+                // set log type code
+                $logTypeCode = "LUMEN_DEMO_TOOL_UPDATE";
                 // update album
                 $lumenDemoToolLogicSvc->saveAlbumData($requestParams,$id);
                 // set message
                 $message = "tr_melis_lumen_notification_message_upate_ok";
-                // set log type code
-                $logTypeCode = "LUMEN_DEMO_TOOL_UPDATE";
             } else {
                 // include date
                 $requestParams['alb_date'] = date('Y-m-d h:i:s');
