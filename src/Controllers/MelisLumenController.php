@@ -19,9 +19,14 @@ class MelisLumenController extends BaseController
      */
     public function renderMelisLumen()
     {
+        $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
+
         // view variables
         $viewVariables = [
-            'data' =>  MelisDemoAlbumTableLumen::query()->orderBy('alb_id','desc')->get()
+            'data' =>  MelisDemoAlbumTableLumen::query()->orderBy('alb_id','desc')->get(),
+            'plugin'  => $lumenDemoToolLogicSvc->getAppContentByUrl('melis/lumen-plugin'),
+            'limit' => view($this->viewNamespace . "::lumen-tool/tool-limit"),
+            'dataTable' => $lumenDemoToolLogicSvc->getDataTableConfiguration(config('album_table_config')['table'],"#lumenDemoToolTable",false)
         ];
 
         // getting the view in this module
@@ -41,6 +46,21 @@ class MelisLumenController extends BaseController
     /**
      * @return \Illuminate\View\View
      */
+    public function renderEditButton()
+    {
+        return view($this->viewNamespace . "::lumen-demo/tool-edit-button");
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function renderDeleteButton()
+    {
+        return view($this->viewNamespace . "::lumen-demo/tool-delete-button");
+    }
+    /**
+     * @return \Illuminate\View\View
+     */
     public function toolModalContent()
     {
         $albumId = app('request')->request->get('albumId') ?? null;
@@ -52,6 +72,56 @@ class MelisLumenController extends BaseController
         return view("$this->viewNamespace::lumen-tool/tool-modal-content",['data' => $data]);
     }
 
+    public function getAlbumData()
+    {
+        $request = app('request');
+        $success = 0;
+        $colId = array();
+        $dataCount = 0;
+        $draw = 0;
+        $dataFiltered = 0;
+        $tableData = array();
+
+        if($request->getMethod() == Request::METHOD_POST) {
+           $params = $request->request->all();
+           /*
+            *  standard datatable configuration
+            */
+           $sortOrder = $params['order'][0]['dir'];
+           $selCol    = $params['order'];
+           $colId     = array_keys(config('album_table_config')['table']['columns']);
+           $selCol    = $colId[$selCol[0]['column']];
+           $draw      = $params['draw'];
+           $start     = $params['start'];
+           $length    = $params['length'];
+           $search    = $params['search'];
+           $search    = $search['value'];
+           $dataCount = MelisDemoAlbumTableLumen::query()->count();
+           $albumData = MelisDemoAlbumTableLumen::query()
+                        ->skip($start)//$sliderSvc->getSliderList($start, $length, $colOrder, $search);
+                        ->limit($length)
+                        ->orderBy('alb_id','desc')
+                        ->get();
+
+           $c = 0;
+           foreach($albumData as $data){
+               $tableData[$c]['DT_RowId'] = $data->alb_id;
+               $tableData[$c]['alb_id'] = $data->alb_id;
+               $tableData[$c]['alb_name'] = $data->alb_name;
+               $tableData[$c]['alb_date'] = $data->alb_date;
+               $tableData[$c]['alb_song_num'] = $data->alb_song_num;
+               $c++;
+           }
+        }
+
+        return [
+            'draw' => $draw,
+            'recordsTotal' => $dataCount,
+            'recordsFiltered' => $dataFiltered,
+            'data' => $tableData
+        ];
+
+    }
     /**
      * Create or update an album
      *

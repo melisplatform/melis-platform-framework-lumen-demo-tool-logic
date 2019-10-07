@@ -18,13 +18,16 @@ Route::get('/melis/lumen-plugin',  MelisLumenController::class ."@renderMelisPug
 Route::get('/melis/lumen-get-album-form', [
     'uses' => MelisLumenController::class ."@toolModalContent",
 ]);
-
+# save album
 Route::post('/melis/save-lumen-album' , MelisLumenController::class . "@saveAlbum");
+# edit album
 Route::get('/melis/edit-lumen-album' , MelisLumenController::class . "@editLumenAlbum");
+# delete an album
 Route::post('/melis/delete-lumen-album' , MelisLumenController::class . "@deleteAlbum");
+
 /**
  * get data table for lumen
  */
-Route::get('/melis/lumen-get-table-data', MelisLumenController::class . "@getLumenAlbumTableData");
+Route::post('/melis/lumen-get-table-data', MelisLumenController::class . "@getAlbumData");
 
 

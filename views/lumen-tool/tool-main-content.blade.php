@@ -1,35 +1,33 @@
-<?php
-    $namespace = 'MelisPlatformFrameworkLumenDemoToolLogic';
-
-?>
+<?php $namespace = 'MelisPlatformFrameworkLumenDemoToolLogic'; ?>
 <!-- header area -->
 @include($namespace. "::lumen-tool/tool-header")
+@include($namespace. "::lumen-tool/tool-table-filters")
 {{-- table content--}}
-<table class='table'>
-    <tr class="tr-table-header">
-        <th>Id</th>
-        <th> {{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
-        <th>Date</th>
-        <th> {{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_songs') }}</th>
-        <th class="text-center"> Action </th>
-    </tr>
-    @foreach ($data as $idx => $val)
-        <tr>
-            <td>{{ $val->alb_id }}</td>
-            <td>{{ $val->alb_name }}</td>
-            <td>{{ $val->alb_date }}</td>
-            <td>{{ $val->alb_song_num}}</td>
-            <td class=" dtActionCls text-center" >
-                <div>
-                    <a href="#modal-template-manager-actions" data-toggle="modal" class="btn btn-success btnEditLumenAlbum" data-id="<?= $val->alb_id ?>" title="Edit">
-                        <i class="fa fa-pencil"> </i>
-                    </a>
-                    <a class="btn btn-danger btnDelLumenAlbum" title="Delete" data-id="<?= $val->alb_id ?>">
-                        <i class="fa fa-times"> </i>
-                    </a>
-                </div>
-            </td>
-        </tr>
-    @endforeach
-</table>
 
+<?php
+    app('melisgenerictable')->setTable([
+        'id' => 'lumenDemoToolTable',
+        'class' => 'table table-striped table-primary dt-responsive nowrap',
+        'cellspacing' => '0',
+        'width' => '100%'
+    ]);
+    $columns = array();
+    $columnStyle = array();
+    $tableCols = config('album_table_config')['table']['columns'];
+    $tableCols['action'] = [
+        'text' => 'Action'
+    ];
+    foreach($tableCols as $colName => $columnText) {
+        $columns[] = $columnText['text'];
+    }
+
+    app('melisgenerictable')->setColumns($columns);
+    echo app('melisgenerictable')->renderTable();
+?>
+<script type="text/javascript">
+    //this script cannot be separated to this file since all table configuration and initialization are done here
+    // render table to DataTable plugin
+    $(document).ready(function() {
+        <?= $dataTable ?>
+    });
+</script>
