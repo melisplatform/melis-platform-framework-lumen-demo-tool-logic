@@ -34,11 +34,6 @@
             ]
         }
      },
-     "autoload-dev": {
-         "classmap": [
-             "../../../thirdparty/Lumen/tests/"
-         ]
-     },
      "config": {
          "optimize-autoloader": true
      }
