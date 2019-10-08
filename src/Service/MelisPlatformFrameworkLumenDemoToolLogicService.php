@@ -149,34 +149,36 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
 
             $searchInputClass = '';
 
-//            // render the buttons in the left section of the filter bar
-//            foreach ($left as $leftKey => $leftValue) {
-//                $htmlContent = $this->getViewContent($leftValue);
-//                if (!in_array($htmlContent, $preDefDTFilter)) {
-//                    $leftDom .= '<"' . $leftKey . '">';
-//                    $jsSdomContentInit .= '$(".' . $leftKey . '").html(\'' . $this->replaceQuotes($htmlContent) . '\');';
-//                } else {
-//                    $leftDom .= '<"' . $leftKey . '"' . $htmlContent . '>';
-//                    if ($htmlContent == 'f') {
-//                        $searchInputClass = $leftKey;
-//                    }
-//                }
-//            }
+            // render the buttons in the left section of the filter bar
+            foreach ($left as $leftKey => $leftValue) {
+//                $htmlContent = $this->getAppContentByUrl($leftValue);
+                $htmlContent = $leftValue;
+                if (!in_array($htmlContent, $preDefDTFilter)) {
+                    $leftDom .= '<"' . $leftKey . '">';
+                    $jsSdomContentInit .= '$(".' . $leftKey . '").html(\'' . $this->replaceQuotes($htmlContent) . '\');';
+                } else {
+                    $leftDom .= '<"' . $leftKey . '"' . $htmlContent . '>';
+                    if ($htmlContent == 'f') {
+                        $searchInputClass = $leftKey;
+                    }
+                }
+            }
 
-//            // render the buttons in the center section of the filter bar
-//            foreach ($center as $centerKey => $centerValue) {
+            // render the buttons in the center section of the filter bar
+            foreach ($center as $centerKey => $centerValue) {
 //                $htmlContent = $this->getViewContent($centerValue);
-//                if (!in_array($htmlContent, $preDefDTFilter)) {
-//                    $centerDom .= '<"' . $centerKey . '">';
-//                    $jsSdomContentInit .= '$(".' . $centerKey . '").html(\'' . $htmlContent . '\');';
-//                } else {
-//                    $centerDom .= '<"' . $centerKey . '"' . $htmlContent . '>';
-//                    if ($htmlContent == 'f') {
-//                        $searchInputClass = $centerKey;
-//                    }
-//                }
-//
-//            }
+                $htmlContent = $centerValue;
+                if (!in_array($htmlContent, $preDefDTFilter)) {
+                    $centerDom .= '<"' . $centerKey . '">';
+                    $jsSdomContentInit .= '$(".' . $centerKey . '").html(\'' . $htmlContent . '\');';
+                } else {
+                    $centerDom .= '<"' . $centerKey . '"' . $htmlContent . '>';
+                    if ($htmlContent == 'f') {
+                        $searchInputClass = $centerKey;
+                    }
+                }
+
+            }
 
             // render the buttons in the right sectuib if the filter bar
 //            foreach ($right as $rightKey => $rightValue) {

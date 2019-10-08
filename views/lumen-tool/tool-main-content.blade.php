@@ -1,7 +1,6 @@
 <?php $namespace = 'MelisPlatformFrameworkLumenDemoToolLogic'; ?>
 <!-- header area -->
 @include($namespace. "::lumen-tool/tool-header")
-@include($namespace. "::lumen-tool/tool-table-filters")
 {{-- table content--}}
 
 <?php

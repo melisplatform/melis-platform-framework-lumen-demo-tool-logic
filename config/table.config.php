@@ -8,11 +8,8 @@ return array(
         'ajaxCallback' => '',
         'filters' => array(
             'left' => array(
-//                'news-list-news-filter-limit' => array( 'module' => 'MelisCmsNews',
-//                    'controller' => 'MelisCmsNewsList',
-//                    'action' => 'render-news-list-content-filter-limit'
-//
-//                ),
+                # limit
+                'album_limit_filter' => 'l'
 //                'news-list-news-filter-site' => array(
 //                    'module' => 'MelisCmsNews',
 //                    'controller' => 'MelisCmsNewsList',
@@ -21,11 +18,8 @@ return array(
             ),
 
             'center' => array(
-//                'news-list-news-filter-search' => array(
-//                    'module' => 'MelisCmsNews',
-//                    'controller' => 'MelisCmsNewsList',
-//                    'action' => 'render-news-list-content-filter-search'
-//                ),
+                # search
+                'album_search_filter' => 'f'
             ),
 
             'right' => array(

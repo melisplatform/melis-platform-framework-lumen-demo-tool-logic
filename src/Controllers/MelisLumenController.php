@@ -23,10 +23,8 @@ class MelisLumenController extends BaseController
 
         // view variables
         $viewVariables = [
-            'data' =>  MelisDemoAlbumTableLumen::query()->orderBy('alb_id','desc')->get(),
-            'plugin'  => $lumenDemoToolLogicSvc->getAppContentByUrl('melis/lumen-plugin'),
             'limit' => view($this->viewNamespace . "::lumen-tool/tool-limit"),
-            'dataTable' => $lumenDemoToolLogicSvc->getDataTableConfiguration(config('album_table_config')['table'],"#lumenDemoToolTable",false)
+            'dataTable' => $lumenDemoToolLogicSvc->getDataTableConfiguration(config('album_table_config')['table'],"#lumenDemoToolTable",false,null,['order' => '[[ 0, "desc" ]]'])
         ];
 
         // getting the view in this module
@@ -98,9 +96,9 @@ class MelisLumenController extends BaseController
            $search    = $search['value'];
            $dataCount = MelisDemoAlbumTableLumen::query()->count();
            $albumData = MelisDemoAlbumTableLumen::query()
-                        ->skip($start)//$sliderSvc->getSliderList($start, $length, $colOrder, $search);
+                        ->skip($start)
                         ->limit($length)
-                        ->orderBy('alb_id','desc')
+                        ->orderBy($selCol,$sortOrder)
                         ->get();
 
            $c = 0;
@@ -117,7 +115,7 @@ class MelisLumenController extends BaseController
         return [
             'draw' => $draw,
             'recordsTotal' => $dataCount,
-            'recordsFiltered' => $dataFiltered,
+            'recordsFiltered' => $dataCount,
             'data' => $tableData
         ];
 
