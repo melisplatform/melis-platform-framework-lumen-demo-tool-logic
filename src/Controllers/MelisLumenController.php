@@ -69,26 +69,30 @@ class MelisLumenController extends BaseController
         $tableData = array();
 
         if($request->getMethod() == Request::METHOD_POST) {
+
+           $lumenAlbumSrvc = new LumenDemoToolLogicService();
            $params = $request->request->all();
            /*
-            *  standard datatable configuration
+            * standard datatable configuration
             */
            $sortOrder = $params['order'][0]['dir'];
            $selCol    = $params['order'];
            $colId     = array_keys(config('album_table_config')['table']['columns']);
            $selCol    = $colId[$selCol[0]['column']];
            $draw      = $params['draw'];
+           # pagination start
            $start     = $params['start'];
+           # drop down limit
            $length    = $params['length'];
-           $search    = $params['search'];
-           $search    = $search['value'];
+           # search value from the table
+           $search    = $params['search']['value'];
+           # get all searchable columns from the config
+           $searchableCols = config('album_table_config')['table']['searchables'] ?? [];
+           # get total count of the data in the db
            $dataCount = MelisDemoAlbumTableLumen::query()->count();
-           $albumData = MelisDemoAlbumTableLumen::query()
-                        ->skip($start)
-                        ->limit($length)
-                        ->orderBy($selCol,$sortOrder)
-                        ->get();
-
+           # get data from the service
+           $albumData = $lumenAlbumSrvc->getAlbumData($start,$length,$searchableCols,$search,$selCol,$sortOrder);
+           # organized data
            $c = 0;
            foreach($albumData as $data){
                $tableData[$c]['DT_RowId'] = $data->alb_id;

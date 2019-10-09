@@ -1,0 +1,1 @@
+<div class="lumen-table-refresh"><a class="btn btn-default melis-lumen-refresh" data-toggle="tab" aria-expanded="true" title="Refresh"><i class="fa fa-refresh"></i></a></div>

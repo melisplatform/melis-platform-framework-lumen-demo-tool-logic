@@ -18,7 +18,9 @@ return array(
                 ]
             ),
             'right' => array(
-
+                'refresh' => [
+                    'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-table-filter-refresh'
+                ]
             ),
         ),
         'columns' => array(
@@ -43,7 +45,9 @@ return array(
                 'sortable' => true,
             ),
         ),
-        'searchables' => array(),
+        'searchables' => array(
+            'alb_id','alb_name'
+        ),
         'actionButtons' => array(
             'edit' => [
                 'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-edit-button',

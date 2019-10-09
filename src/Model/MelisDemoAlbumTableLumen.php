@@ -14,7 +14,7 @@ class MelisDemoAlbumTableLumen extends Model
      *
      * @var $table
      */
-    protected $table = 'melis_demo_album_table_lumen';
+    protected $table = 'melis_demo_album';
     /**
      * The primary key associated with the table.
      *

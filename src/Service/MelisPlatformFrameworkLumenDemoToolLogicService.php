@@ -10,9 +10,34 @@ use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
 
 class MelisPlatformFrameworkLumenDemoToolLogicService
 {
-    public function getAlbumData()
+    /**
+     * @param $start
+     * @param $limit
+     * @param $searchableCols
+     * @param $search
+     * @param $orderBy
+     * @param $orderDir
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
+    public function getAlbumData($start,$limit,$searchableCols,$search,$orderBy,$orderDir)
     {
-
+        return MelisDemoAlbumTableLumen::query()
+            ->where(function($query) use ($searchableCols,$search){
+                if (! empty($searchableCols)) {
+                    $where = "";
+                    foreach ($searchableCols as $idx => $col) {
+                        if ($idx == 0){
+                            $query->where($col,"like","%$search%");
+                        } else {
+                            $query->orWhere($col,"like","%$search%");
+                        }
+                    }
+                }
+            })
+            ->skip($start)
+            ->limit($limit)
+            ->orderBy($orderBy,$orderDir)
+            ->get();
     }
     /**
      * @param $data
