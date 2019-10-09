@@ -3,6 +3,8 @@ namespace MelisPlatformFrameworkLumenDemoToolLogic\Service;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Route;
+use Laravel\Lumen\Routing\Router;
 use MelisCore\Service\MelisCoreFlashMessengerService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
 
@@ -85,24 +87,43 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
      * @param $url
      * @return false|string
      */
-    public function getAppContentByUrl($url, $method = "GET", $parameters = [])
+    public function getViewContent($config)
     {
+        $view = $config['view'] ?? null;
+        if (empty($view)) {
+            return "No content found \t";
+        }
+        return view($view)->render();
+    }
+    /**
+     * Get the view of certain url
+     *
+     * @param $url
+     * @return false|string
+     */
+    public function getContentByUrl($url, $method = "GET",$parameters = [])
+    {
+        $view = $config['view'] ?? null;
         /*
          * get the dispatcher of the application and passed a Request with url
          */
         $dispatch = app()->dispatch(Request::create($url,$method,$parameters));
         /*
-         * check if the url found the application
+         * check if the url was found the application
          */
         if ($dispatch->getStatusCode() == Response::HTTP_OK) {
             // return the content
             return $dispatch->getContent();
         }
 
-        return "<i>No Response</i>";
+        return "<i>No content found</i>";
     }
     /**
-     * This functions reads the configuration inside the app.tool array config
+     * This is the typical method used in displaying dynamic table in some melis modules.
+     *
+     * This functions reads the configuration inside the config/talbe.fongi.php array config
+     *
+     * This will generate a javascript code that will handle the pagination/limit/search of the table
      *
      * @param null $targetTable
      * @param bool $allowReInit
@@ -151,8 +172,7 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
 
             // render the buttons in the left section of the filter bar
             foreach ($left as $leftKey => $leftValue) {
-//                $htmlContent = $this->getAppContentByUrl($leftValue);
-                $htmlContent = $leftValue;
+                $htmlContent = $this->getViewContent($leftValue);
                 if (!in_array($htmlContent, $preDefDTFilter)) {
                     $leftDom .= '<"' . $leftKey . '">';
                     $jsSdomContentInit .= '$(".' . $leftKey . '").html(\'' . $this->replaceQuotes($htmlContent) . '\');';
@@ -166,8 +186,7 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
 
             // render the buttons in the center section of the filter bar
             foreach ($center as $centerKey => $centerValue) {
-//                $htmlContent = $this->getViewContent($centerValue);
-                $htmlContent = $centerValue;
+                $htmlContent = $this->getViewContent($centerValue);
                 if (!in_array($htmlContent, $preDefDTFilter)) {
                     $centerDom .= '<"' . $centerKey . '">';
                     $jsSdomContentInit .= '$(".' . $centerKey . '").html(\'' . $htmlContent . '\');';
@@ -181,20 +200,19 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
             }
 
             // render the buttons in the right sectuib if the filter bar
-//            foreach ($right as $rightKey => $rightValue) {
-////                $htmlContent = $this->getViewContent($rightValue);
-//                $htmlContent = $this->replaceQuotes($htmlContent);
-//                if (!in_array($htmlContent, $preDefDTFilter)) {
-//                    $rightDom .= '<"' . $rightKey . '">';
-//                    $jsSdomContentInit .= '$(".' . $rightKey . '").html(\'' . $htmlContent . '\');';
-//                } else {
-//                    $rightDom .= '<"' . $rightKey . '"' . $htmlContent . '>';
-//                    if ($htmlContent == 'f') {
-//                        $searchInputClass = $rightKey;
-//                    }
-//                }
-//
-//            }
+            foreach ($right as $rightKey => $rightValue) {
+                $htmlContent = $this->getViewContent($rightValue);
+                if (!in_array($htmlContent, $preDefDTFilter)) {
+                    $rightDom .= '<"' . $rightKey . '">';
+                    $jsSdomContentInit .= '$(".' . $rightKey . '").html(\'' . $htmlContent . '\');';
+                } else {
+                    $rightDom .= '<"' . $rightKey . '"' . $htmlContent . '>';
+                    if ($htmlContent == 'f') {
+                        $searchInputClass = $rightKey;
+                    }
+                }
+
+            }
 
             $tableSearchPlugin = '';
             if (!empty($searchInputClass)) {
@@ -224,7 +242,7 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
             $action = '';
             $actionCount = 0;
             foreach ($actionContainer as $actionKey => $actionContent) {
-                $actionButtons .= $actionContent;
+                $actionButtons .= $this->getViewContent($actionContent);
             }
 
             // remove unnecessary new lines and text paragraphs (not <p> tags)
@@ -418,6 +436,17 @@ class MelisPlatformFrameworkLumenDemoToolLogicService
         }
 
         return $dtJScript;
+    }
+    /**
+     * Quote correction for better execution in queries
+     *
+     * @param $text
+     *
+     * @return string
+     */
+    private function replaceQuotes($text)
+    {
+        return str_replace(["'", "’"], chr(92) . "'", $text);
     }
 
 }

@@ -20,11 +20,15 @@ class MelisLumenController extends BaseController
     public function renderMelisLumen()
     {
         $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
-
+        // get zend service manager
+        $zendServiceManager = app('ZendServiceManager');
+        // get melis cms news service from melis-platform
+        /** @var \MelisCore\Model\Tables\MelisLangTable $melisCoreLang */
+        $melisCoreLang = $zendServiceManager->get('MelisCoreTableLang');
         // view variables
         $viewVariables = [
-            'limit' => view($this->viewNamespace . "::lumen-tool/tool-limit"),
-            'dataTable' => $lumenDemoToolLogicSvc->getDataTableConfiguration(config('album_table_config')['table'],"#lumenDemoToolTable",false,null,['order' => '[[ 0, "desc" ]]'])
+            'dataTable' => $lumenDemoToolLogicSvc->getDataTableConfiguration(config('album_table_config')['table'],"#lumenDemoToolTable",false,null,['order' => '[[ 0, "desc" ]]']),
+            'coreLang'  => $melisCoreLang->fetchAll()->toArray()
         ];
 
         // getting the view in this module
@@ -39,22 +43,6 @@ class MelisLumenController extends BaseController
         // getting the view in this module
         return view("$this->viewNamespace::plugins/melis-plugin", ['data' => MelisDemoAlbumTableLumen::all()]);
 
-    }
-
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function renderEditButton()
-    {
-        return view($this->viewNamespace . "::lumen-demo/tool-edit-button");
-    }
-
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function renderDeleteButton()
-    {
-        return view($this->viewNamespace . "::lumen-demo/tool-delete-button");
     }
     /**
      * @return \Illuminate\View\View

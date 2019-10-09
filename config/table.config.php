@@ -8,26 +8,17 @@ return array(
         'ajaxCallback' => '',
         'filters' => array(
             'left' => array(
-                # limit
-                'album_limit_filter' => 'l'
-//                'news-list-news-filter-site' => array(
-//                    'module' => 'MelisCmsNews',
-//                    'controller' => 'MelisCmsNewsList',
-//                    'action' => 'render-news-list-content-filter-site'
-//                ),
+                'limit' => [
+                    'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-table-filter-limit'
+                ],
             ),
-
             'center' => array(
-                # search
-                'album_search_filter' => 'f'
+                'search' => [
+                    'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-table-filter-search'
+                ]
             ),
-
             'right' => array(
-//                'news-list-news-filter-refresh' => array(
-//                    'module' => 'MelisCmsNews',
-//                    'controller' => 'MelisCmsNewsList',
-//                    'action' => 'render-news-list-content-filter-refresh'
-//                ),
+
             ),
         ),
         'columns' => array(
@@ -54,10 +45,12 @@ return array(
         ),
         'searchables' => array(),
         'actionButtons' => array(
-            # edit
-            'info' => view("MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-edit-button")->render(),
-            # delete
-            'delete' => view("MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-delete-button")->render()
+            'edit' => [
+                'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-edit-button',
+            ],
+            'delete' => [
+                'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-delete-button'
+            ]
         ),
     ),
 );

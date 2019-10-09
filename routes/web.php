@@ -31,3 +31,5 @@ Route::post('/melis/delete-lumen-album' , MelisLumenController::class . "@delete
 Route::post('/melis/lumen-get-table-data', MelisLumenController::class . "@getAlbumData");
 
 
+
+

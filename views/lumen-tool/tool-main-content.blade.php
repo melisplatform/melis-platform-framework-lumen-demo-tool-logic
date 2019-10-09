@@ -30,3 +30,21 @@
         <?= $dataTable ?>
     });
 </script>
+
+<br>
+<h3>{{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
+<p>{{ app('ZendTranslator')->translate('tr_melis_lumen_demo_tool_sample_2_heading')  }}</p>
+<table class='table'>
+    <tr class='tr-table-header' >
+        <th>ID</th>
+        <th> {{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
+        <th>Locale</th>
+    </tr>
+    @foreach ($coreLang as $idx => $val)
+        <tr>
+            <td>{{ $val['lang_id'] }}</td>
+            <td>{{ $val['lang_name'] }}</td>
+            <td>{{ $val['lang_locale'] }}</td>
+        </tr>
+    @endforeach
+</table>
