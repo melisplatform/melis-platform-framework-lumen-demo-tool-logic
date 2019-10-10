@@ -46,7 +46,7 @@ return array(
             ),
         ),
         'searchables' => array(
-            'alb_id','alb_name'
+            'alb_id','alb_name','alb_song_num'
         ),
         'actionButtons' => array(
             'edit' => [

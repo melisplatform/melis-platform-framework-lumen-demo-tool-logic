@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use MelisCore\Service\MelisCoreFlashMessengerService;
+use MelisPlatformFrameworkLumen\Service\MelisPlatformFrameworkLumenService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
 use mysql_xdevapi\Exception;
-use MelisPlatformFrameworkLumenDemoToolLogic\Service\MelisPlatformFrameworkLumenDemoToolLogicService as LumenDemoToolLogicService;
+use MelisPlatformFrameworkLumen\Service\MelisPlatformFrameworkLumenService as MelisPlatformLumenService;
+use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService as LumenDemoToolLogicService;
 
 class MelisLumenController extends BaseController
 {
@@ -19,7 +21,7 @@ class MelisLumenController extends BaseController
      */
     public function renderMelisLumen()
     {
-        $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
+        $lumenDemoToolLogicSvc = new MelisPlatformLumenService();
         // get zend service manager
         $zendServiceManager = app('ZendServiceManager');
         // get melis cms news service from melis-platform
@@ -88,10 +90,11 @@ class MelisLumenController extends BaseController
            $search    = $params['search']['value'];
            # get all searchable columns from the config
            $searchableCols = config('album_table_config')['table']['searchables'] ?? [];
-           # get total count of the data in the db
-           $dataCount = MelisDemoAlbumTableLumen::query()->count();
            # get data from the service
-           $albumData = $lumenAlbumSrvc->getAlbumData($start,$length,$searchableCols,$search,$selCol,$sortOrder);
+           $data = $lumenAlbumSrvc->getAlbumData($start,$length,$searchableCols,$search,$selCol,$sortOrder);
+           # get total count of the data in the db
+           $dataCount = $data['dataCount'];
+           $albumData = $data['data'];
            # organized data
            $c = 0;
            foreach($albumData as $data){
@@ -163,9 +166,9 @@ class MelisLumenController extends BaseController
                 }
             }
         }
-
         // Lumen demo tool logic service
         $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
+        $lumenService          = new MelisPlatformLumenService();
         // check for errors
         if (empty($errors)) {
             // set to true
@@ -188,16 +191,16 @@ class MelisLumenController extends BaseController
                 // include date
                 $requestParams['alb_date'] = date('Y-m-d h:i:s');
                 // save album data
-                $id = $lumenDemoToolLogicSvc->saveAlbumData($requestParams);
+                $id = $lumenDemoToolLogicSvc->saveAlbumData($requestParams)['id'];
                 // set message
                 $message = "tr_melis_lumen_notification_message_save_ok";
             }
         }
 
         // add to melis flash messenger
-        $lumenDemoToolLogicSvc->addToFlashMessenger($title, $message,$icon);
+        $lumenService->addToFlashMessenger($title, $message,$icon);
         // save into melis logs
-        $lumenDemoToolLogicSvc->saveLogs($title, $message, $success, $logTypeCode, $id);
+        $lumenService->saveLogs($title, $message, $success, $logTypeCode, $id);
 
         // return required data
         return [
