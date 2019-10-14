@@ -1,6 +1,36 @@
 <?php
     # zend translator
     $zendTranslator = app('ZendTranslator');
+    $form = [
+       'alb_name' => [
+           'type' => 'text',
+           'label' => $zendTranslator->translate('tr_melis_lumen_table1_heading_name'),
+           'value' => $data->alb_name ?? null,
+           'attributes' => [
+               'required' => 'required'
+           ]
+       ],
+       'alb_song_num' => [
+           'type' => 'text',
+           'label' => $zendTranslator->translate('tr_melis_lumen_table1_heading_songs'),
+           'value' => $data->alb_song_num ?? null
+       ]
+    ];
+    if (! empty($data)) {
+        $form['alb_date'] = [
+            'type' => 'text',
+            'label' => 'Date',
+            'value' => $data->alb_date,
+            'attributes' => [
+                'disabled' => true
+            ]
+        ];
+        $form['alb_id'] = [
+            'type' => 'hidden',
+            'value' => $data->alb_id
+        ];
+    }
+
 ?>
 <div class="modal-content">
     <div class="modal-body padding-none">
@@ -19,30 +49,17 @@
                     <div class="tab-content">
                         <div class="tab-pane active">
                             <form action="POST" name="lumen_demo_tool_add_album" id="lumen_demo_tool_add_album">
-                                <div class="form-group">
-                                    <label for="alb_name">
-                                        <?= $zendTranslator->translate('tr_melis_lumen_table1_heading_name')?> *
-                                        <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="<?= $zendTranslator->translate('tr_melis_lumen_table1_heading_name')?>"></i>
-                                    </label>
-                                    <input type="text" id="alb_name" class="form-control" name="alb_name" value="{{ $data->alb_name ?? null }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alb_song_num">
-                                        <?= $zendTranslator->translate('tr_melis_lumen_table1_heading_songs')?>
-                                        <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement="left" data-original-title="<?= $zendTranslator->translate('tr_melis_lumen_table1_heading_songs')?>"></i>
-                                    </label>
-                                    <input type="text" id="alb_song_num" class="form-control" name="alb_song_num" value="{{ $data->alb_song_num ?? null}}">
-                                </div>
-                                <?php if (!empty($data)){?>
-                                <input type="hidden" id="alb_id" class="form-control" name="alb_id" value="{{ $data->alb_id }}">
+
+                                @foreach ($form as $key => $element)
                                     <div class="form-group">
-                                        <label for="alb_date">
-                                            Date
-                                            <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="Date"></i>
+                                        <label for="{{ $key  }}">
+                                            {{ $element['label'] ?? null }} <?= isset($element['attributes']['required']) ? "*" : null ?>
+                                            <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="{{ $element['label'] ?? null }}"></i>
                                         </label>
-                                        <input type="text" id="alb_date" class="form-control" name="alb_date" value="{{ $data->alb_date }}" disabled>
+                                        <input type={{ $element['type'] }} id="{{ $key }}" class="form-control" name=" {{ $key }}" value="{{ $element['value'] ?? null }}" <?= isset($element['attributes']['disabled']) ? "disabled = " .$element['attributes']['disabled'] : null ?>>
                                     </div>
-                                <?php } ?>
+                                @endforeach
+
                                 <br>
                                 <div align="right">
                                     <button data-dismiss="modal" class="btn btn-danger pull-left lumen-modal-close" ><i class="fa fa-times"></i> <?php echo $zendTranslator->translate('tr_meliscore_common_close')?></button>
