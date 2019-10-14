@@ -46,7 +46,7 @@
                                 <br>
                                 <div align="right">
                                     <button data-dismiss="modal" class="btn btn-danger pull-left lumen-modal-close" ><i class="fa fa-times"></i> <?php echo $zendTranslator->translate('tr_meliscore_common_close')?></button>
-                                    <button type="submit" class="btn btn-success" id="btn-save-lumen-album"><i class="fa fa-save"></i>  <?php echo $zendTranslator->translate('tr_meliscore_tool_gen_save')?></button>
+                                    <button type="submit" class="btn btn-success" id="btn-save-lumen-album"><i class="fa fa-save"></i>  <?php echo $zendTranslator->translate('tr_meliscore_common_add')?></button>
                                 </div>
                                 <div class="clearfix"></div>
                             </form>
