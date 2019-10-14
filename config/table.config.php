@@ -8,7 +8,7 @@ return array(
         'ajaxCallback' => '',
         'filters' => array(
             'left' => array(
-                'limit' => [
+                'show' => [
                     'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-table-filter-limit'
                 ],
             ),
@@ -46,7 +46,7 @@ return array(
             ),
         ),
         'searchables' => array(
-            'alb_id','alb_name','alb_song_num'
+            'alb_id','alb_name','alb_song_num', 'alb_date'
         ),
         'actionButtons' => array(
             'edit' => [

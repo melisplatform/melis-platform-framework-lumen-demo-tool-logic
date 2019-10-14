@@ -2,16 +2,17 @@
 
 namespace MelisPlatformFrameworkLumenDemoToolLogic\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use MelisCore\Service\MelisCoreFlashMessengerService;
+use MelisPlatformFrameworkLumen\MelisServiceProvider;
 use MelisPlatformFrameworkLumen\Service\MelisPlatformFrameworkLumenService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
+use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService;
 use mysql_xdevapi\Exception;
 use MelisPlatformFrameworkLumen\Service\MelisPlatformFrameworkLumenService as MelisPlatformLumenService;
-use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService as LumenDemoToolLogicService;
 
 class MelisLumenController extends BaseController
 {
@@ -33,10 +34,19 @@ class MelisLumenController extends BaseController
             'coreLang'  => $melisCoreLang->fetchAll()->toArray()
         ];
 
+
         // getting the view in this module
         return view("$this->viewNamespace::lumen-tool/tool-main-content", $viewVariables);
     }
+    public function getMelisDatatable()
+    {
+        // declare the Tool service that we will be using to completely create our tool.
+        $melisTool = app('ZendServiceManager')->get('MelisCoreTool');
 
+        // tell the Tool what configuration in the app.tool.php that will be used.
+        $melisTool->setMelisToolKey('meliscms', 'meliscms_tool_templates');
+        return $melisTool->getDataTableConfiguration('#tableToolTemplateManager',false,false,array('order' => '[[ 0, "desc" ]]'));
+    }
     /**
      * @return \Illuminate\View\View
      */
@@ -60,6 +70,12 @@ class MelisLumenController extends BaseController
         return view("$this->viewNamespace::lumen-tool/tool-modal-content",['data' => $data]);
     }
 
+    /**
+     *
+     * retrieve the data
+     *
+     * @return array
+     */
     public function getAlbumData()
     {
         $request = app('request');

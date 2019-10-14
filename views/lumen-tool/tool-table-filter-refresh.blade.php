@@ -1,1 +1,1 @@
-<div class="lumen-table-refresh"><a class="btn btn-default melis-lumen-refresh" data-toggle="tab" aria-expanded="true" title="Refresh"><i class="fa fa-refresh"></i></a></div>
+<div class="lumen-table-refresh"><a class="btn btn-default melis-lumen-refresh" data-toggle="tab" aria-expanded="true" title="<?=  app('ZendTranslator')->translate('tr_melis_lumen_table_refresh')?> "><i class="fa fa-refresh"></i></a></div>

@@ -2,7 +2,6 @@
 <!-- header area -->
 @include($namespace. "::lumen-tool/tool-header")
 {{-- table content--}}
-
 <?php
     app('melisgenerictable')->setTable([
         'id' => 'lumenDemoToolTable',
@@ -23,13 +22,6 @@
     app('melisgenerictable')->setColumns($columns);
     echo app('melisgenerictable')->renderTable();
 ?>
-<script type="text/javascript">
-    //this script cannot be separated to this file since all table configuration and initialization are done here
-    // render table to DataTable plugin
-    $(document).ready(function() {
-        <?= $dataTable ?>
-    });
-</script>
 
 <br>
 <h3>{{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
@@ -48,3 +40,12 @@
         </tr>
     @endforeach
 </table>
+
+{{--  dynamic table with pagination same with the common melis datatable --}}
+<script type="text/javascript">
+    //this script cannot be separated to this file since all table configuration and initialization are done here
+    // render table to DataTable plugin
+    $(document).ready(function() {
+        <?= $dataTable ?>
+    });
+</script>
