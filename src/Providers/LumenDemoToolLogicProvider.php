@@ -15,8 +15,6 @@ class LumenDemoToolLogicProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../../routes/web.php');
         # load views in the lumen application
         $this->loadViewsFrom(__DIR__ . '/../../views','MelisPlatformFrameworkLumenDemoToolLogic');
-        # create translations based on locale
-        $this->createTranslations();
         # include table config
         $this->addTableConfig();
     }
@@ -29,7 +27,7 @@ class LumenDemoToolLogicProvider extends ServiceProvider
         # add config
         $config = include __DIR__ . "/../../config/table.config.php";
         # translate colun translations
-        $config = $this->translateTableColumns($config);
+        $this->translateTableColumns($config);
     }
 
     /**
@@ -49,40 +47,6 @@ class LumenDemoToolLogicProvider extends ServiceProvider
         Config::set('album_table_config', $config);
     }
 
-    /**
-     * create translations based on locale
-     * @throws \Exception
-     */
-    private function createTranslations()
-    {
-        # zend translation
-        $translator = MelisServiceProvider::getService('translator');
-        # get melis back office locale
-        $locale = MelisServiceProvider::getMelisLocale();
-        # check locale
-        if (!empty($locale)) {
-            # translation type
-            # ex. en_EN.table.php | ge_GE.table.php
-            $translationType = [
-                'table'
-            ];
-            # get all translation files and then add it in the translator
-            foreach ($translationType as $type) {
-                # if translation is not found, use melis default translations
-                $defaultLocale = (file_exists(__DIR__ . "/../../language/$locale.$type.php")) ? $locale : "en_EN";
-                # set translation path
-                $transPath = __DIR__ . "/../../language/$defaultLocale.$type.php";
-                # create translations
-                if (file_exists($transPath)) {
-                    $translator->addTranslationFile('phparray', $transPath);
-                }
-            }
-        }
-        # update the zendTranslator with the new added translations
-        $this->app->singleton('ZendTranslator',function() use($translator){
-            return $translator;
-        });
-    }
     
 
 }
