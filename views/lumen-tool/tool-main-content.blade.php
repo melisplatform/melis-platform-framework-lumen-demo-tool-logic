@@ -1,4 +1,7 @@
-<?php $namespace = 'MelisPlatformFrameworkLumenDemoToolLogic'; ?>
+<?php
+    $namespace = 'MelisPlatformFrameworkLumenDemoToolLogic';
+    $zendTranslator = app('ZendTranslator');
+?>
 <!-- header area -->
 @include($namespace. "::lumen-tool/tool-header")
 {{-- table content--}}
@@ -24,12 +27,12 @@
 ?>
 
 <br>
-<h3>{{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
-<p>{{ app('ZendTranslator')->translate('tr_melis_lumen_demo_tool_sample_2_heading')  }}</p>
+<h3>{{ $zendTranslator->translate('tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
+<p>{{ $zendTranslator->translate('tr_melis_lumen_demo_tool_sample_2_heading')  }}</p>
 <table class='table'>
     <tr class='tr-table-header' >
         <th>ID</th>
-        <th> {{ app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_name') }}</th>
+        <th> {{ $zendTranslator->translate('tr_melis_lumen_table1_heading_name') }}</th>
         <th>Locale</th>
     </tr>
     @foreach ($coreLang as $idx => $val)

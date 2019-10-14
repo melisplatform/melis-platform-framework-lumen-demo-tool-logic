@@ -1,6 +1,7 @@
 <?php
 
 use  \MelisPlatformFrameworkLumenDemoToolLogic\Controllers\MelisLumenController;
+use \MelisPlatformFrameworkLumenDemoToolLogic\Controllers\Plugins\MelisPluginLumenController;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,7 +14,7 @@ use  \MelisPlatformFrameworkLumenDemoToolLogic\Controllers\MelisLumenController;
 */
 
 Route::get('/melis/lumen-list',  MelisLumenController::class ."@renderMelisLumen");
-Route::get('/melis/lumen-plugin',  MelisLumenController::class ."@renderMelisPugin");
+Route::get('/melis/lumen-plugin',  MelisPluginLumenController::class ."@renderMelisPugin");
 
 Route::get('/melis/lumen-get-album-form', [
     'uses' => MelisLumenController::class ."@toolModalContent",

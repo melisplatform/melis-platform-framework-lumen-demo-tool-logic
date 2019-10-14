@@ -34,27 +34,8 @@ class MelisLumenController extends BaseController
             'coreLang'  => $melisCoreLang->fetchAll()->toArray()
         ];
 
-
         // getting the view in this module
         return view("$this->viewNamespace::lumen-tool/tool-main-content", $viewVariables);
-    }
-    public function getMelisDatatable()
-    {
-        // declare the Tool service that we will be using to completely create our tool.
-        $melisTool = app('ZendServiceManager')->get('MelisCoreTool');
-
-        // tell the Tool what configuration in the app.tool.php that will be used.
-        $melisTool->setMelisToolKey('meliscms', 'meliscms_tool_templates');
-        return $melisTool->getDataTableConfiguration('#tableToolTemplateManager',false,false,array('order' => '[[ 0, "desc" ]]'));
-    }
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function renderMelisPugin()
-    {
-        // getting the view in this module
-        return view("$this->viewNamespace::plugins/melis-plugin", ['data' => MelisDemoAlbumTableLumen::all()]);
-
     }
     /**
      * @return \Illuminate\View\View

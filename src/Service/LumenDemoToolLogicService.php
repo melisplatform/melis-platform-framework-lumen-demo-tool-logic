@@ -34,6 +34,8 @@ class LumenDemoToolLogicService
                 ->limit($limit)
                 ->orderBy($orderBy,$orderDir)
                 ->get();
+
+
         }catch (\Exception $err) {
             # return error
             throw new \Exception($err->getMessage());
