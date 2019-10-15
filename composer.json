@@ -24,8 +24,7 @@
         "module"
     ],
     "require" : {
-        "melisplatform/melis-platform-framework-lumen" : "^3.1",
-        "melisplatform/melis-platform-framework-lumen-demo-tool" : "^3.1"
+        "melisplatform/melis-platform-framework-lumen-demo-tool" : "*"
     },
     "autoload": {
         "psr-4": {
@@ -34,10 +33,8 @@
                 "../../../thirdparty/Lumen/app/"
             ]
         }
-    },
-     "autoload-dev": {
-         "classmap": [
-             "../../../thirdparty/Lumen/tests/"
-         ]
+     },
+     "config": {
+         "optimize-autoloader": true
      }
 }
