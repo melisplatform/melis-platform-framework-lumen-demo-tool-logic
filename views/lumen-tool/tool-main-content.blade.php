@@ -29,8 +29,8 @@
 <br>
 <h3>{{ $zendTranslator->translate('tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
 <p>{{ $zendTranslator->translate('tr_melis_lumen_demo_tool_sample_2_heading')  }}</p>
-<table class='table'>
-    <tr class='tr-table-header' >
+<table class='table table-striped'>
+    <tr>
         <th>ID</th>
         <th> {{ $zendTranslator->translate('tr_melis_lumen_table1_heading_name') }}</th>
         <th>Locale</th>

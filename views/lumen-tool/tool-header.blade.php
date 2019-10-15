@@ -1,18 +1,3 @@
-<style>
-    .tr-table-header {
-        background: #e61c23;
-        color:#fff;
-        line-height: normal;
-    }
-    .display-2 {
-        font-size:18px;
-    }
-    .circle-image {
-        border-radius: 100%;
-        border: 2px solid #fff;
-        box-shadow: 0px 1px 1px rgba(0,0,0,0.3);
-    }
-</style>
 <div class="lumen-album-head">
     <div class="row">
         <div id="id_meliscmsnews_list_header_left" data-meliskey="meliscmsnews_list_header_left" class="me-hl col-xs-12 col-md-9">

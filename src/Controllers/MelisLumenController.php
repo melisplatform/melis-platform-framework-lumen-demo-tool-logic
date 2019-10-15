@@ -79,20 +79,20 @@ class MelisLumenController extends BaseController
            $colId     = array_keys(config('album_table_config')['table']['columns']);
            $selCol    = $colId[$selCol[0]['column']];
            $draw      = $params['draw'];
-           # pagination start
+           // pagination start
            $start     = $params['start'];
-           # drop down limit
+           // drop down limit
            $length    = $params['length'];
-           # search value from the table
+           // search value from the table
            $search    = $params['search']['value'];
-           # get all searchable columns from the config
+           // get all searchable columns from the config
            $searchableCols = config('album_table_config')['table']['searchables'] ?? [];
-           # get data from the service
+           // get data from the service
            $data = $lumenAlbumSrvc->getAlbumData($start,$length,$searchableCols,$search,$selCol,$sortOrder);
-           # get total count of the data in the db
+           // get total count of the data in the db
            $dataCount = $data['dataCount'];
            $albumData = $data['data'];
-           # organized data
+           // organized data
            $c = 0;
            foreach($albumData as $data){
                $tableData[$c]['DT_RowId'] = $data->alb_id;

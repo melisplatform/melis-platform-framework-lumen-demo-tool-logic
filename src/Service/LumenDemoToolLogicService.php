@@ -37,12 +37,12 @@ class LumenDemoToolLogicService
 
 
         }catch (\Exception $err) {
-            # return error
+            // return error
             throw new \Exception($err->getMessage());
         }
-        # count all with no filters
+        // count all with no filters
         $tmpDataCount = MelisDemoAlbumTableLumen::all()->count();
-        # count data with filters
+        // count data with filters
         if (! empty($searchableCols) && !empty($search)) {
             $tmpDataCount = $data->count();
         }
@@ -100,7 +100,7 @@ class LumenDemoToolLogicService
                 $success = MelisDemoAlbumTableLumen::query()->where('alb_id',$id)->delete();
             }
         } catch(\Exception $err) {
-            # throw error
+            // throw error
             throw new \Exception($err->getMessage());
         }
 

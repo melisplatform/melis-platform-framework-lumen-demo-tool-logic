@@ -11,11 +11,11 @@ class LumenDemoToolLogicProvider extends ServiceProvider
 {
     public function boot()
     {
-        # load routes in the lumen application
+        // load routes in the lumen application
         $this->loadRoutesFrom(__DIR__ . '/../../routes/web.php');
-        # load views in the lumen application
+        // load views in the lumen application
         $this->loadViewsFrom(__DIR__ . '/../../views','MelisPlatformFrameworkLumenDemoToolLogic');
-        # include table config
+        // include table config
         $this->addTableConfig();
     }
 
@@ -24,9 +24,9 @@ class LumenDemoToolLogicProvider extends ServiceProvider
      */
     private function addTableConfig()
     {
-        # add config
+        // add config
         $config = include __DIR__ . "/../../config/table.config.php";
-        # translate colun translations
+        // translate colun translations
         $this->translateTableColumns($config);
     }
 
@@ -39,11 +39,11 @@ class LumenDemoToolLogicProvider extends ServiceProvider
      */
     private function translateTableColumns($config)
     {
-        # table columns
+        // table columns
         foreach ($config['table']['columns'] as $field => $val) {
             $config['table']['columns'][$field]['text'] = app('ZendTranslator')->translate($val['text']);
         }
-        # set config
+        // set config
         Config::set('album_table_config', $config);
     }
 
