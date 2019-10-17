@@ -22,14 +22,14 @@
                                 <div class="form-group">
                                     <label for="alb_name">
                                         <?= $zendTranslator->translate('tr_melis_lumen_table1_heading_name')?> *
-                                        <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="<?= $zendTranslator->translate('tr_melis_lumen_table1_heading_name')?>"></i>
+                                        <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="<?= $zendTranslator->translate('tr_melis_lumen_table1_heading_name tooltip')?>"></i>
                                     </label>
                                     <input type="text" id="alb_name" class="form-control" name="alb_name" value="{{ $data->alb_name ?? null }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="alb_song_num">
                                         <?= $zendTranslator->translate('tr_melis_lumen_table1_heading_songs')?>
-                                        <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement="left" data-original-title="<?= $zendTranslator->translate('tr_melis_lumen_table1_heading_name')?>"></i>
+                                        <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement="left" data-original-title="<?= $zendTranslator->translate('tr_melis_lumen_table1_heading_songs tooltip')?>"></i>
                                     </label>
                                     <input type="text" id="alb_song_num" class="form-control" name="alb_song_num" value="{{ $data->alb_song_num ?? null}}">
                                 </div>
@@ -37,8 +37,8 @@
                                 <input type="hidden" id="alb_id" class="form-control" name="alb_id" value="{{ $data->alb_id }}">
                                     <div class="form-group">
                                         <label for="alb_date">
-                                            Date
-                                            <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="Date"></i>
+                                            <?= $zendTranslator->translate('tr_melis_lumen_table1_heading_date')?>
+                                            <i class="fa fa-info-circle fa-lg pull-right tip-info" data-toggle="tooltip" data-placement= "left" data-original-title="<?= $zendTranslator->translate('tr_melis_lumen_table1_heading_date tooltip')?>"></i>
                                         </label>
                                         <input type="text" id="alb_date" class="form-control" name="alb_date" value="{{ $data->alb_date }}" disabled>
                                     </div>
