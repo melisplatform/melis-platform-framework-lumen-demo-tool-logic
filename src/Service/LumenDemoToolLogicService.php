@@ -110,4 +110,14 @@ class LumenDemoToolLogicService
         ];
     }
 
+    /**
+     * @param $albumName
+     * @return array
+     */
+    public function getAlbumByName($albumName)
+    {
+       return MelisDemoAlbumTableLumen::query()->where('alb_name',$albumName)->get()->toArray();
+    }
+
+
 }

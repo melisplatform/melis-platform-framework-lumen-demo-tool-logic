@@ -1,12 +1,15 @@
 <?php
     $namespace = 'MelisPlatformFrameworkLumenDemoToolLogic';
+    /** @var \Zend\Mvc\I18n\Translator $zendTranslator */
     $zendTranslator = app('ZendTranslator');
+    /** @var \MelisCore\View\Helper\MelisGenericTable $melisGenericTable */
+    $melisGenericTable = app('melisgenerictable');
 ?>
 <!-- header area -->
 @include($namespace. "::lumen-tool/tool-header")
 {{-- table content--}}
 <?php
-    app('melisgenerictable')->setTable([
+    $melisGenericTable->setTable([
         'id' => 'lumenDemoToolTable',
         'class' => 'table table-striped table-primary dt-responsive nowrap',
         'cellspacing' => '0',
@@ -22,8 +25,8 @@
         $columns[] = $columnText['text'];
     }
 
-    app('melisgenerictable')->setColumns($columns);
-    echo app('melisgenerictable')->renderTable();
+    $melisGenericTable->setColumns($columns);
+    echo $melisGenericTable->renderTable();
 ?>
 
 <br>

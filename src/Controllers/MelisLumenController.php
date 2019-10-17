@@ -12,7 +12,7 @@ use MelisPlatformFrameworkLumen\Service\MelisPlatformFrameworkLumenService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
 use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService;
 use mysql_xdevapi\Exception;
-use MelisPlatformFrameworkLumen\Service\MelisPlatformFrameworkLumenService as MelisPlatformLumenService;
+use MelisPlatformFrameworkLumen\Service\MelisPlatformToolLumenService;
 
 class MelisLumenController extends BaseController
 {
@@ -22,7 +22,7 @@ class MelisLumenController extends BaseController
      */
     public function renderMelisLumen()
     {
-        $lumenDemoToolLogicSvc = new MelisPlatformLumenService();
+        $lumenDemoToolLogicSvc = new MelisPlatformToolLumenService();
         // get zend service manager
         $zendServiceManager = app('ZendServiceManager');
         // get melis cms news service from melis-platform
@@ -136,6 +136,9 @@ class MelisLumenController extends BaseController
         // id
         $id = null;
         // make a validator for the request parameters
+        // zend translator
+        /** @var \Zend\Mvc\I18n\Translator $zendTranslator */
+        $zendTranslator = app('ZendTranslator');
         $validator = Validator::make($requestParams,[
             'alb_name' => 'required|regex:/^[a-zA-Z0-9\s]*$/',
             'alb_song_num' => 'integer'
@@ -150,10 +153,10 @@ class MelisLumenController extends BaseController
             // add translation to keys
             $keyTranslations = [
                 'alb_name' => [
-                    'label' => app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_name')
+                    'label' => $zendTranslator->translate('tr_melis_lumen_table1_heading_name')
                 ],
                 'alb_song_num' => [
-                    'label' => app('ZendTranslator')->translate('tr_melis_lumen_table1_heading_songs')
+                    'label' => $zendTranslator->translate('tr_melis_lumen_table1_heading_songs')
                 ]
             ];
             // asigning label
@@ -165,7 +168,18 @@ class MelisLumenController extends BaseController
         }
         // Lumen demo tool logic service
         $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
-        $lumenService          = new MelisPlatformLumenService();
+        // Melis platform tool lumen service
+        $lumenService          = new MelisPlatformToolLumenService();
+        // check for album name in the db
+        if(!empty($lumenDemoToolLogicSvc->getAlbumByName($requestParams['alb_name']))) {
+            if (!isset($errors['alb_name'])) {
+                // set errors
+                $errors['alb_name'] = [
+                    'alreadyExists' => $zendTranslator->translate("tr_melis_lumen_album_name_already_used"),
+                    'label'         => $zendTranslator->translate('tr_melis_lumen_table1_heading_name')
+                ];
+            }
+        }
         // check for errors
         if (empty($errors)) {
             // set to true
@@ -203,8 +217,8 @@ class MelisLumenController extends BaseController
         return [
             'errors' => $errors,
             'success' => $success,
-            'textMessage' => app('ZendTranslator')->translate($message),
-            'textTitle' => app('ZendTranslator')->translate($title)
+            'textMessage' => $zendTranslator->translate($message),
+            'textTitle' => $zendTranslator->translate($title)
         ];
     }
 
