@@ -171,7 +171,8 @@ class MelisLumenController extends BaseController
         // Melis platform tool lumen service
         $lumenService          = new MelisPlatformToolLumenService();
         // check for album name in the db
-        if(!empty($lumenDemoToolLogicSvc->getAlbumByName($requestParams['alb_name']))) {
+        $tmpData = $lumenDemoToolLogicSvc->getAlbumByName($requestParams['alb_name']);
+        if(!empty($tmpData) && $tmpData->alb_id != $requestParams['alb_id']) {
             if (!isset($errors['alb_name'])) {
                 // set errors
                 $errors['alb_name'] = [

@@ -116,7 +116,7 @@ class LumenDemoToolLogicService
      */
     public function getAlbumByName($albumName)
     {
-       return MelisDemoAlbumTableLumen::query()->where('alb_name',$albumName)->get()->toArray();
+       return MelisDemoAlbumTableLumen::query()->where('alb_name',$albumName)->first()    ;
     }
 
 
