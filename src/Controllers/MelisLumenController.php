@@ -17,20 +17,29 @@ use MelisPlatformFrameworkLumen\Service\MelisPlatformToolLumenService;
 class MelisLumenController extends BaseController
 {
     private $viewNamespace = "MelisPlatformFrameworkLumenDemoToolLogic";
+
+    /** @var MelisPlatformToolLumenService */
+    protected $melisPlatformToolService;
+
+    public function __construct(MelisPlatformToolLumenService $melisPlatformToolService)
+    {
+        $this->melisPlatformToolService = $melisPlatformToolService;
+    }
+
     /**
      * @return \Illuminate\View\View
      */
     public function renderMelisLumen()
     {
-        $lumenDemoToolLogicSvc = new MelisPlatformToolLumenService();
         // get zend service manager
         $zendServiceManager = app('ZendServiceManager');
+
         // get melis cms news service from melis-platform
         /** @var \MelisCore\Model\Tables\MelisLangTable $melisCoreLang */
         $melisCoreLang = $zendServiceManager->get('MelisCoreTableLang');
         // view variables
         $viewVariables = [
-            'dataTable' => $lumenDemoToolLogicSvc->getDataTableConfiguration(config('album_table_config')['table'],"#lumenDemoToolTable",false,null,['order' => '[[ 0, "desc" ]]']),
+            'dataTable' => "",
             'coreLang'  => $melisCoreLang->fetchAll()->toArray()
         ];
 
@@ -74,6 +83,7 @@ class MelisLumenController extends BaseController
            /*
             * standard datatable configuration
             */
+
            $sortOrder = $params['order'][0]['dir'];
            $selCol    = $params['order'];
            $colId     = array_keys(config('album_table_config')['table']['columns']);
@@ -169,7 +179,7 @@ class MelisLumenController extends BaseController
         // Lumen demo tool logic service
         $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
         // Melis platform tool lumen service
-        $lumenService          = new MelisPlatformToolLumenService();
+        //$lumenService          = new MelisPlatformToolLumenService();
         // check for album name in the db
         $tmpData = $lumenDemoToolLogicSvc->getAlbumByName($requestParams['alb_name']);
         if(!empty($tmpData) && $tmpData->alb_id != $requestParams['alb_id']) {
@@ -210,9 +220,9 @@ class MelisLumenController extends BaseController
         }
 
         // add to melis flash messenger
-        $lumenService->addToFlashMessenger($title, $message,$icon);
+        $this->melisPlatformToolService->addToFlashMessenger($title, $message,$icon);
         // save into melis logs
-        $lumenService->saveLogs($title, $message, $success, $logTypeCode, $id);
+        $this->melisPlatformToolService->saveLogs($title, $message, $success, $logTypeCode, $id);
 
         // return required data
         return [

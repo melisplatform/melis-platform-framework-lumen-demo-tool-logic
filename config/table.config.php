@@ -8,19 +8,13 @@ return array(
         'ajaxCallback' => '',
         'filters' => array(
             'left' => array(
-                'show' => [
-                    'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-table-filter-limit'
-                ],
+                'show' => "l",
             ),
             'center' => array(
-                'search' => [
-                    'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-table-filter-search'
-                ]
+                'search' => "f"
             ),
             'right' => array(
-                'refresh' => [
-                    'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-table-filter-refresh'
-                ]
+                'refresh' => '<div class="lumen-table-refresh"><a class="btn btn-default melis-lumen-refresh" data-toggle="tab" aria-expanded="true" title="Rafraichir "><i class="fa fa-refresh"></i></a></div>'
             ),
         ),
         'columns' => array(
@@ -49,12 +43,8 @@ return array(
             'alb_id','alb_name','alb_song_num', 'alb_date'
         ),
         'actionButtons' => array(
-            'edit' => [
-                'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-edit-button',
-            ],
-            'delete' => [
-                'view' => 'MelisPlatformFrameworkLumenDemoToolLogic::lumen-tool/tool-delete-button'
-            ]
+            'edit' => "<a href=\"#modal-template-manager-actions\" class=\"btn btn-success btnEditLumenAlbum\" title=\"Editer\"> <i class=\"fa fa-pencil\"> </i> </a>\t",
+            'delete' => "<a class=\"btn btn-danger btnDelLumenAlbum\" title=\"Supprimer\" > <i class=\"fa fa-times\"> </i> </a>"
         ),
     ),
 );
