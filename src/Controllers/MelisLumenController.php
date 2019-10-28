@@ -5,13 +5,13 @@ namespace MelisPlatformFrameworkLumenDemoToolLogic\Controllers;
 use Illuminate\Http\Request;use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Lumen\Application;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use MelisCore\Service\MelisCoreFlashMessengerService;
 use MelisPlatformFrameworkLumen\MelisServiceProvider;
 use MelisPlatformFrameworkLumen\Service\MelisPlatformFrameworkLumenService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
 use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService;
-use mysql_xdevapi\Exception;
 use MelisPlatformFrameworkLumen\Service\MelisPlatformToolLumenService;
 
 class MelisLumenController extends BaseController
@@ -21,9 +21,9 @@ class MelisLumenController extends BaseController
     /** @var MelisPlatformToolLumenService */
     protected $melisPlatformToolService;
 
-    public function __construct(MelisPlatformToolLumenService $melisPlatformToolService)
+    public function __construct()
     {
-        $this->melisPlatformToolService = $melisPlatformToolService;
+        $this->melisPlatformToolService = new MelisPlatformToolLumenService(app('ZendServiceManager'));
     }
 
     /**
@@ -42,6 +42,7 @@ class MelisLumenController extends BaseController
             'dataTable' => "",
             'coreLang'  => $melisCoreLang->fetchAll()->toArray()
         ];
+
 
         // getting the view in this module
         return view("$this->viewNamespace::lumen-tool/tool-main-content", $viewVariables);
@@ -258,7 +259,7 @@ class MelisLumenController extends BaseController
         $albumId = app('request')->request->get('albumId');
 
         if (empty($albumId)) {
-            throw new Exception('No album id');
+            throw new \Exception('No album id');
         }
 
         // Lumen demo tool logic service
@@ -271,9 +272,9 @@ class MelisLumenController extends BaseController
         }
 
         // add to melis flash messenger
-        $lumenDemoToolLogicSvc->addToFlashMessenger($title, $message,$icon);
+        $this->melisPlatformToolService->addToFlashMessenger($title, $message,$icon);
         // save into melis logs
-        $lumenDemoToolLogicSvc->saveLogs($title, $message, $success, $logTypeCode, $albumId);
+        $this->melisPlatformToolService->saveLogs($title, $message, $success, $logTypeCode, $albumId);
 
         return [
             'success' => $success,
