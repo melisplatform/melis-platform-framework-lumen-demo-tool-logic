@@ -20,10 +20,14 @@ class MelisLumenController extends BaseController
 
     /** @var MelisPlatformToolLumenService */
     protected $melisPlatformToolService;
-
-    public function __construct()
+    /**
+     * @var
+     */
+    protected $lumenToolService;
+    public function __construct(LumenDemoToolLogicService $lumenService)
     {
         $this->melisPlatformToolService = new MelisPlatformToolLumenService(app('ZendServiceManager'));
+        $this->lumenToolService = $lumenService;
     }
 
     /**
@@ -283,4 +287,21 @@ class MelisLumenController extends BaseController
             'textTitle' => app('ZendTranslator')->translate($title)
         ];
     }
+
+    /**
+     * retrieve album info by id
+     *
+     * @param $id
+     * @return array
+     */
+    public function getAlbumInfo($id)
+    {
+        return $this->lumenToolService->getAlbumById($id)->toArray();
+    }
+
+    public function getAlbumForm($id = null)
+    {
+        return $this->lumenToolService->getAlbumForm($id);
+    }
+
 }

@@ -27,6 +27,10 @@ Route::get('/melis/edit-lumen-album' , MelisLumenController::class . "@editLumen
 Route::post('/melis/delete-lumen-album' , MelisLumenController::class . "@deleteAlbum");
 // get data for datatable
 Route::post('/melis/lumen-get-table-data', MelisLumenController::class . "@getAlbumData");
+// get album data by id
+Route::get('/melis/get-lumen-data/{id}', MelisLumenController::class . "@getAlbumInfo");
+// get album form
+Route::get('/melis/get-album-form', MelisLumenController::class . "@getAlbumForm");
 
 
 

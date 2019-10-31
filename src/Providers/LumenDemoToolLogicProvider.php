@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use MelisPlatformFrameworkLumen\MelisServiceProvider;
 use MelisPlatformFrameworkLumenDemoToolLogic\Serivce\MelisPlatformFrameworkLumenDemoToolLogicService;
+use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService;
 use Zend\Session\Container;
 
 class LumenDemoToolLogicProvider extends ServiceProvider
@@ -15,8 +16,19 @@ class LumenDemoToolLogicProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../../routes/web.php');
         // load views in the lumen application
         $this->loadViewsFrom(__DIR__ . '/../../views','MelisPlatformFrameworkLumenDemoToolLogic');
+        // load transations
+        $this->loadTranslationsFrom(__DIR__ . '/../../language', 'lumenDemo');
         // include table config
         $this->addTableConfig();
+        // include form config
+        $this->addFormConfig();
+    }
+    public function register()
+    {
+        // lumen demo logic service
+        $this->app->singleton('LumenToolService' , function(){
+            return new LumenDemoToolLogicService();
+        });
     }
 
     /**
@@ -45,6 +57,13 @@ class LumenDemoToolLogicProvider extends ServiceProvider
         }
         // set config
         Config::set('album_table_config', $config);
+    }
+    private function addFormConfig()
+    {
+        // add config
+        $config = include __DIR__ . "/../../config/form.config.php";
+        // set config
+        Config::set('album_form', $config);
     }
 
     
