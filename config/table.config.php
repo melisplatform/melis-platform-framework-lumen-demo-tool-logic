@@ -47,9 +47,9 @@ return array(
         'searchables' => array(
             'alb_id','alb_name','alb_song_num', 'alb_date'
         ),
-//        'actionButtons' => array(
-//            'edit' => "<a href=\"#modal-template-manager-actions\" data-toggle=\"modal\" data-target=\"#lumenModal\" class=\"btn btn-success btnEditLumenAlbum\" title=\"Editer\"> <i class=\"fa fa-pencil\"> </i> </a>\t",
-//            'delete' => "<a class=\"btn btn-danger btnDelLumenAlbum\" title=\"Supprimer\" > <i class=\"fa fa-times\"> </i> </a>"
-//        ),
+        'actionButtons' => array(
+            'edit' => "<a href=\"#modal-template-manager-actions\" data-toggle=\"modal\" data-target=\"#lumenModal\" class=\"btn btn-success btnEditLumenAlbum\" title=\"Editer\"> <i class=\"fa fa-pencil\"> </i> </a>\t",
+            'delete' => "<a class=\"btn btn-danger btnDelLumenAlbum\" title=\"Supprimer\" > <i class=\"fa fa-times\"> </i> </a>"
+        ),
     ),
 );
