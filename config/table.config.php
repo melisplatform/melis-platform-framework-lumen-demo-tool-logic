@@ -29,7 +29,7 @@ return array(
                 'sortable' => true,
             ),
             'alb_name' => array(
-                'text' => 'tr_melis_lumen_table1_heading_name',
+                'text' => __('lumenDemo::translations.tr_melis_lumen_table1_heading_name'),
                 'css' => array('width' => '20%', 'padding-right' => '0'),
                 'sortable' => true,
             ),
@@ -39,7 +39,7 @@ return array(
                 'sortable' => true,
             ),
             'alb_song_num' => array(
-                'text' => 'tr_melis_lumen_table1_heading_songs',
+                'text' => __('lumenDemo::translations.tr_melis_lumen_table1_heading_songs'),
                 'css' => array('width' => '30%', 'padding-right' => '0'),
                 'sortable' => true,
             ),

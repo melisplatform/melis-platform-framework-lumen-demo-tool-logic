@@ -3,6 +3,7 @@
 namespace MelisPlatformFrameworkLumenDemoToolLogic\Controllers;
 
 use Illuminate\Http\Request;use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Application;
@@ -26,7 +27,7 @@ class MelisLumenController extends BaseController
     protected $lumenToolService;
     public function __construct(LumenDemoToolLogicService $lumenService)
     {
-        $this->melisPlatformToolService = new MelisPlatformToolLumenService(app('ZendServiceManager'));
+        $this->melisPlatformToolService = new MelisPlatformToolLumenService();
         $this->lumenToolService = $lumenService;
     }
 
@@ -44,7 +45,7 @@ class MelisLumenController extends BaseController
         // view variables
         $viewVariables = [
             'dataTable' => "",
-            'coreLang'  => $melisCoreLang->fetchAll()->toArray()
+            'coreLang'  => $melisCoreLang->fetchAll()->toArray(),
         ];
 
 
@@ -56,13 +57,15 @@ class MelisLumenController extends BaseController
      */
     public function toolModalContent()
     {
-        $albumId = app('request')->request->get('albumId') ?? null;
-        $data = [];
-        if ($albumId){
-            $data = MelisDemoAlbumTableLumen::query()->find($albumId);
-        }
+//        $albumId = app('request')->request->get('albumId') ?? null;
+//        $data = [];
+//        if ($albumId){
+//            $data = MelisDemoAlbumTableLumen::query()->find($albumId);
+//        }
 
-        return view("$this->viewNamespace::lumen-tool/tool-modal-content",['data' => $data]);
+        return view("$this->viewNamespace::lumen-tool/tool-modal-content",[
+            'form' => $this->melisPlatformToolService->createDynamicForm(Config::get('album_form'))
+        ]);
     }
 
     /**
@@ -299,9 +302,6 @@ class MelisLumenController extends BaseController
         return $this->lumenToolService->getAlbumById($id)->toArray();
     }
 
-    public function getAlbumForm($id = null)
-    {
-        return $this->lumenToolService->getAlbumForm($id);
-    }
+
 
 }

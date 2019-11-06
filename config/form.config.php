@@ -6,25 +6,25 @@ return [
             'class' => 'form',
             'method' => 'POST',
             'name'  => 'album_form',
+            'id'    => "lumen_demo_tool_add_album"
         ],
         'elements' => [
             [
                 'type' => 'text',
-                'name' => 'alb_name',
                 'label' => 'Name',
+                'tooltip' => "ToolTip dako oten",
                 'attributes' => [
                     'class' => 'form-control',
                     'required' => true,
-                    'tooltip' => ''
+                    'name' => 'alb_name',
                 ]
             ],
             [
                 'type' => 'text',
-                'name' => 'alb_no_of_songs',
                 'label' => 'No of songs',
                 'attributes' => [
                     'class' => 'form-control',
-                    'tooltip' => ''
+                    'name' => 'alb_song_num',
                 ]
             ]
         ],

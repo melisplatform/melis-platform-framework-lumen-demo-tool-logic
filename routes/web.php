@@ -30,7 +30,7 @@ Route::post('/melis/lumen-get-table-data', MelisLumenController::class . "@getAl
 // get album data by id
 Route::get('/melis/get-lumen-data/{id}', MelisLumenController::class . "@getAlbumInfo");
 // get album form
-Route::get('/melis/get-album-form', MelisLumenController::class . "@getAlbumForm");
+Route::get('/melis/get-tool-modal', MelisLumenController::class . "@toolModalContent");
 
 
 

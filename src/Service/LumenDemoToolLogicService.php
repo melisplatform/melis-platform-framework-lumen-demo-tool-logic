@@ -124,59 +124,5 @@ class LumenDemoToolLogicService
     {
         return MelisDemoAlbumTableLumen::query()->where('alb_id',$id)->first();
     }
-    public function getAlbumForm($id = null)
-    {
-        return $this->constructForm(Config::get('album_form'), $id);
-    }
-    public function constructForm($formConfig,$id = null)
-    {
-        $formInputsType = [
-            'text',
-            'radio',
-            'password',
-            'hidden',
-            'checkbox',
-            'file',
-        ];
-        $htmlForm = "";
-        if(!empty($formConfig)) {
-            if ($this->checkArraykey('form',$formConfig)) {
-                // check for form attributes
-                $formAttributes = "";
-                if ($this->checkArraykey('attributes',$formConfig['form'])) {
-                    foreach ($formConfig['form']['attributes'] as $idx => $val) {
-                        $formAttributes .= $idx . "='" . $val . "' ";
-                    }
-                }
-                // put attributes
-                $htmlForm.= "<form " . $formAttributes .">";
-                $formElements = "";
-                // check for form elements
-                if ($this->checkArraykey('elements',$formConfig['form'])) {
-                    foreach ($formConfig['form']['elements'] as $idx => $elements) {
-                        // check element type
-                        if ($this->checkArraykey('type',$elements)) {
-                            if (in_array($elements['type'] ?? null, $formInputsType)) {
-                                $formElements .= "<label>" . ($elements['label'] ?? null) . "<input type='" .  $elements['type'] . "' /> </label>";
-                            }
-                        }
-                    }
-                }
-                $htmlForm .= $formElements . "</form>";
-
-                echo $htmlForm;
-            }
-        }
-    }
-
-    private function checkArraykey($key,$array)
-    {
-        if (isset($array[$key]) && $array[$key]) {
-            return true;
-        }
-
-        return false;
-    }
-
 
 }
