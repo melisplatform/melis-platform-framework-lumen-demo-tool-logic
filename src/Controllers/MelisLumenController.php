@@ -2,6 +2,7 @@
 
 namespace MelisPlatformFrameworkLumenDemoToolLogic\Controllers;
 
+use Composer\Package\Package;
 use Illuminate\Http\Request;use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -55,16 +56,16 @@ class MelisLumenController extends BaseController
     /**
      * @return \Illuminate\View\View
      */
-    public function toolModalContent()
+    public function toolModalContent($id = null)
     {
-//        $albumId = app('request')->request->get('albumId') ?? null;
-//        $data = [];
-//        if ($albumId){
-//            $data = MelisDemoAlbumTableLumen::query()->find($albumId);
-//        }
+        $albumId = app('request')->request->get('albumId') ?? null;
+        $data = [];
+        if ($albumId) {
+            $data = $this->lumenToolService->getAlbumById($albumId)->toArray();
+        }
 
         return view("$this->viewNamespace::lumen-tool/tool-modal-content",[
-            'form' => $this->melisPlatformToolService->createDynamicForm(Config::get('album_form'))
+            'form' => $this->melisPlatformToolService->createDynamicForm(Config::get('album_form'),$data)
         ]);
     }
 
