@@ -14,21 +14,10 @@ return [
     'tr_melis_lumen_table1_heading_date' => 'Date',
     'tr_melis_lumen_table1_heading_date tooltip' => 'Date added',
     'tr_melis_lumen_add_button_text' => 'Add album',
+    'tr_melis_lumen_modal_edit_title' => 'Edit album',
     'tr_common_close' => 'Close',
     'tr_common_save' => 'Save',
-    /*
-    * tool logic notification
-    */
-    'tr_melis_lumen_notification_title' => 'Lumen tool demo',
-    'tr_melis_lumen_notification_message_save_ko' => 'Unable to save album',
-    'tr_melis_lumen_notification_message_save_ok' => 'Album successfully saved',
-    'tr_melis_lumen_notification_message_update_ko' => 'Unable to update album',
-    'tr_melis_lumen_notification_message_upate_ok' => 'Album succesfully updated',
-    'tr_melis_lumen_notification_message_delete_message' => 'Are you sure you want to delete this album ?',
-    'tr_melis_lumen_notification_empty_name' => 'Please enter the album name',
-    'tr_melis_lumen_notification_empty_name_regex' => 'No special character(s) allowed',
-    'tr_melis_lumen_notification_songs_not_int' => 'Songs must be an integer',
-    'tr_melis_lumen_album_name_already_used' => 'Album name is already used',
+
     # modal
     'tr_melis_lumen_modal_add_title' => 'Add album',
     'tr_melis_lumen_modal_edit_title' => 'Edit album',

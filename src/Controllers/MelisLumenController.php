@@ -11,24 +11,23 @@ use Laravel\Lumen\Application;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use MelisCore\Service\MelisCoreFlashMessengerService;
 use MelisPlatformFrameworkLumen\MelisServiceProvider;
-use MelisPlatformFrameworkLumen\Service\MelisPlatformFrameworkLumenService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
-use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService;
+use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService as LogicService;
 use MelisPlatformFrameworkLumen\Service\MelisPlatformToolLumenService;
 
 class MelisLumenController extends BaseController
 {
     private $viewNamespace = "MelisPlatformFrameworkLumenDemoToolLogic";
-
+    protected $transNamespace = "lumenDemo";
     /** @var MelisPlatformToolLumenService */
     protected $melisPlatformToolService;
     /**
      * @var
      */
     protected $lumenToolService;
-    public function __construct(LumenDemoToolLogicService $lumenService)
+    public function __construct(LogicService $lumenService, MelisPlatformToolLumenService $melisLumen)
     {
-        $this->melisPlatformToolService = new MelisPlatformToolLumenService();
+        $this->melisPlatformToolService = $melisLumen;
         $this->lumenToolService = $lumenService;
     }
 
@@ -65,7 +64,8 @@ class MelisLumenController extends BaseController
         }
 
         return view("$this->viewNamespace::lumen-tool/tool-modal-content",[
-            'form' => $this->melisPlatformToolService->createDynamicForm(Config::get('album_form'),$data)
+            'form' => $this->melisPlatformToolService->createDynamicForm(Config::get('album_form'),$data),
+            'id' => $albumId
         ]);
     }
 
@@ -87,7 +87,7 @@ class MelisLumenController extends BaseController
 
         if($request->getMethod() == Request::METHOD_POST) {
 
-           $lumenAlbumSrvc = new LumenDemoToolLogicService();
+           $lumenAlbumSrvc = $this->lumenToolService;
            $params = $request->request->all();
            /*
             * standard datatable configuration
@@ -143,9 +143,9 @@ class MelisLumenController extends BaseController
         // success status
         $success = false;
         // default message
-        $message = "tr_melis_lumen_notification_message_save_ko";
+        $message = __($this->transNamespace . "::translations.tr_melis_lumen_notification_message_save_ko");
         // default title
-        $title = "tr_melis_lumen_notification_title";
+        $title = __($this->transNamespace . "::translations.tr_melis_lumen_notification_title");
         // get all request parameters
         $requestParams = app('request')->request->all();
         // log type for melis logging system
@@ -162,9 +162,9 @@ class MelisLumenController extends BaseController
             'alb_name' => 'required|regex:/^[a-zA-Z0-9\s]*$/',
             'alb_song_num' => 'integer'
         ],[
-            'alb_song_num.integer' => app('ZendTranslator')->translate('tr_melis_lumen_notification_songs_not_int'),
-            'alb_name.required' => app('ZendTranslator')->translate('tr_melis_lumen_notification_empty_name'),
-            'alb_name.regex' => app('ZendTranslator')->translate('tr_melis_lumen_notification_empty_name_regex'),
+            'alb_song_num.integer' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_songs_not_int'),
+            'alb_name.required' => __($this->transNamespace .'::translations.tr_melis_lumen_notification_empty_name'),
+            'alb_name.regex' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty_name_regex'),
         ]);
         // validate inputed data
         if ($validator->fails()) {
@@ -172,10 +172,10 @@ class MelisLumenController extends BaseController
             // add translation to keys
             $keyTranslations = [
                 'alb_name' => [
-                    'label' => $zendTranslator->translate('tr_melis_lumen_table1_heading_name')
+                    'label' => __($this->transNamespace . '::translations.tr_melis_lumen_table1_heading_name')
                 ],
                 'alb_song_num' => [
-                    'label' => $zendTranslator->translate('tr_melis_lumen_table1_heading_songs')
+                    'label' => __($this->transNamespace . '::translations.tr_melis_lumen_table1_heading_songs')
                 ]
             ];
             // asigning label
@@ -186,7 +186,7 @@ class MelisLumenController extends BaseController
             }
         }
         // Lumen demo tool logic service
-        $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
+        $lumenDemoToolLogicSvc = $this->lumenToolService;
         // Melis platform tool lumen service
         //$lumenService          = new MelisPlatformToolLumenService();
         // check for album name in the db
@@ -195,8 +195,8 @@ class MelisLumenController extends BaseController
             if (!isset($errors['alb_name'])) {
                 // set errors
                 $errors['alb_name'] = [
-                    'alreadyExists' => $zendTranslator->translate("tr_melis_lumen_album_name_already_used"),
-                    'label'         => $zendTranslator->translate('tr_melis_lumen_table1_heading_name')
+                    'alreadyExists' => __($this->transNamespace . '::translations.tr_melis_lumen_album_name_already_used'),
+                    'label'         => __($this->transNamespace . '::translations.tr_melis_lumen_table1_heading_name')
                 ];
             }
         }
@@ -271,7 +271,7 @@ class MelisLumenController extends BaseController
         }
 
         // Lumen demo tool logic service
-        $lumenDemoToolLogicSvc = new LumenDemoToolLogicService();
+        $lumenDemoToolLogicSvc = $this->lumenToolService;
 
         if ($lumenDemoToolLogicSvc->deleteAlbum($albumId)) {
             $success = true;

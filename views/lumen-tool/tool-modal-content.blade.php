@@ -1,6 +1,14 @@
+<?php
+    $icon = "plus";
+    $text = "lumenDemo::translations.tr_melis_lumen_modal_add_title";
+    if ($id) {
+        $icon = "pencil";
+        $text = "lumenDemo::translations.tr_melis_lumen_modal_edit_title";
+    }
+?>
 <div class="widget-head">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#" class="glyphicons plus" data-toggle="tab" aria-expanded="true"><i></i>{{ __('lumenDemo::translations.tr_melis_lumen_modal_add_title') }}</a></li>
+        <li class="active"><a href="#" class="glyphicons {{ $icon  }}" data-toggle="tab" aria-expanded="true"><i></i>{{ __($text) }}</a></li>
     </ul>
 </div>
 <div class="widget-body innerAll inner-2x">

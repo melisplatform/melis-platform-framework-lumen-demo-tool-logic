@@ -38,10 +38,12 @@ return [
             [
                 'type' => 'text',
                 'hideNoData' => true,
+                'tooltip' => "Date created the album",
                 'label' => 'Date added',
                 'attributes' => [
                     'name' => 'alb_date',
                     'class' => 'form-control',
+                    'disabled' => true
                 ]
             ],
 //            [
