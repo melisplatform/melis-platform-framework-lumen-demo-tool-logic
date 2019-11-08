@@ -18,8 +18,8 @@ return [
             ],
             [
                 'type' => 'text',
-                'label' => 'Name',
-                'tooltip' => "Name of the album",
+                'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_name"),
+                'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_name tooltip"),
                 'attributes' => [
                     'name' => 'alb_name',
                     'class' => 'form-control',
@@ -28,8 +28,8 @@ return [
             ],
             [
                 'type' => 'text',
-                'label' => 'No. of songs',
-                'tooltip' => "Number of songs in the album",
+                'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_songs"),
+                'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_songs tooltip"),
                 'attributes' => [
                     'name' => 'alb_song_num',
                     'class' => 'form-control',
@@ -39,8 +39,8 @@ return [
             [
                 'type' => 'text',
                 'hideNoData' => true,
-                'tooltip' => "Date created the album",
-                'label' => 'Date added',
+                'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_date tooltip"),
+                'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_date"),
                 'attributes' => [
                     'name' => 'alb_date',
                     'class' => 'form-control',

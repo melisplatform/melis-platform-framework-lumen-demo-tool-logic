@@ -159,13 +159,13 @@ class MelisLumenController extends BaseController
         /** @var \Zend\Mvc\I18n\Translator $zendTranslator */
         $zendTranslator = app('ZendTranslator');
         $validator = Validator::make($requestParams,[
-            'alb_name' => 'required|regex:/^[a-zA-Z0-9\s]*$/',
+            'alb_name' => 'required',
             'alb_song_num' => 'required|integer'
         ],[
             'alb_song_num.integer' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_songs_not_int'),
-            'alb_song_num.required' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty_song_num'),
-            'alb_name.required' => __($this->transNamespace .'::translations.tr_melis_lumen_notification_empty_name'),
-            'alb_name.regex' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty_name_regex'),
+            'alb_song_num.required' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty'),
+            'alb_name.required' => __($this->transNamespace .'::translations.tr_melis_lumen_notification_empty'),
+//            'alb_name.regex' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty_name_regex'),
         ]);
         // validate inputed data
         if ($validator->fails()) {
@@ -192,7 +192,7 @@ class MelisLumenController extends BaseController
         //$lumenService          = new MelisPlatformToolLumenService();
         // check for album name in the db
         $tmpData = $lumenDemoToolLogicSvc->getAlbumByName($requestParams['alb_name']);
-        if(!empty($tmpData) && $tmpData->alb_id != $requestParams['alb_id']) {
+        if(!empty($tmpData) && $tmpData->alb_id != ($requestParams['alb_id'] ?? null)) {
             if (!isset($errors['alb_name'])) {
                 // set errors
                 $errors['alb_name'] = [
@@ -239,8 +239,8 @@ class MelisLumenController extends BaseController
         return [
             'errors' => $errors,
             'success' => $success,
-            'textMessage' => $zendTranslator->translate($message),
-            'textTitle' => $zendTranslator->translate($title)
+            'textMessage' => $message,
+            'textTitle' => $title
         ];
     }
 
@@ -289,8 +289,8 @@ class MelisLumenController extends BaseController
         return [
             'success' => $success,
             'error'   => $errors,
-            'textMessage' => app('ZendTranslator')->translate($message),
-            'textTitle' => app('ZendTranslator')->translate($title)
+            'textMessage' => $message,
+            'textTitle' => $title
         ];
     }
 

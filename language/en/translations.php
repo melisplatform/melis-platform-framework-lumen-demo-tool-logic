@@ -8,7 +8,7 @@ return [
     'tr_melis_lumen_table1_heading_name' => 'Name',
     'tr_melis_lumen_table1_heading_name tooltip' => 'Name of the album',
     'tr_melis_lumen_table1_heading_songs' => 'Songs',
-    'tr_melis_lumen_table1_heading_songs tooltip' => 'Number of songs',
+    'tr_melis_lumen_table1_heading_songs tooltip' => 'Number of songs in the album',
     'tr_melis_lumen_table1_heading_songs_head_album' => 'Album List',
     'tr_melis_lumen_table1_heading_songs_head_language' => 'Language List',
     'tr_melis_lumen_table1_heading_date' => 'Date',
@@ -21,10 +21,9 @@ return [
      * tool logic notification
      * form errors messages
      */
-    'tr_melis_lumen_notification_empty_name' => 'Please enter the album name',
-    'tr_melis_lumen_notification_empty_song_num' => 'Please enter no. of songs',
+    'tr_melis_lumen_notification_empty' => 'This value should not be blank.',
     'tr_melis_lumen_notification_empty_name_regex' => 'No special character(s) allowed',
-    'tr_melis_lumen_notification_songs_not_int' => 'Songs must be an integer',
+    'tr_melis_lumen_notification_songs_not_int' => 'Numerical value only',
     'tr_melis_lumen_album_name_already_used' => 'Album name is already used',
     // modal
     'tr_melis_lumen_modal_add_title' => 'Add album',

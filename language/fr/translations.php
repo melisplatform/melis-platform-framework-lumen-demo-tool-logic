@@ -8,27 +8,27 @@ return [
     'tr_melis_lumen_table1_heading_name' => 'Nom',
     'tr_melis_lumen_table1_heading_name tooltip' => 'Name of the album',
     'tr_melis_lumen_table1_heading_songs' => 'Chansons',
-    'tr_melis_lumen_table1_heading_songs tooltip' => 'Number of songs',
+    'tr_melis_lumen_table1_heading_songs tooltip' => 'Number of song in the albums',
     'tr_melis_lumen_table1_heading_songs_head_album' => 'Album List',
     'tr_melis_lumen_table1_heading_songs_head_language' => 'Language List',
     'tr_melis_lumen_table1_heading_date' => 'Date',
     'tr_melis_lumen_table1_heading_date tooltip' => 'Date added',
-    'tr_melis_lumen_add_button_text' => 'Ajouter album',
+    'tr_melis_lumen_add_button_text' => 'Ajouter un album',
     'tr_melis_lumen_modal_edit_title' => 'Editer album',
     'tr_common_close' => 'Annuler',
     'tr_common_save' => 'Sauvegarder',
     /*
      * tool logic notification form errors
      */
-    'tr_melis_lumen_notification_empty_name' => 'Please enter the album name',
-    'tr_melis_lumen_notification_empty_song_num' => 'Please enter no. of songs',
+    'tr_melis_lumen_notification_empty_name' => 'This value should not be blank',
+    'tr_melis_lumen_notification_empty_song_num' => 'This value should not be blank',
     'tr_melis_lumen_notification_empty_name_regex' => 'No special character(s) allowed',
     'tr_melis_lumen_notification_songs_not_int' => 'Songs must be an integer',
     'tr_melis_lumen_album_name_already_used' => 'Album name is already used',
     /*
      * modal text translations
      */
-    'tr_melis_lumen_modal_add_title' => 'Ajouter album',
+    'tr_melis_lumen_modal_add_title' => 'Ajouter un album',
     'tr_melis_lumen_modal_edit_title' => 'Editer album',
     /*
      * table text translations
