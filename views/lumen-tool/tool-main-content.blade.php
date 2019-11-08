@@ -4,7 +4,7 @@
 <div class="innerAll spacing-x2">
     <div class="row">
         <div class="me-hl col-xs-12 col-md-9">
-            <h3>Album List</h3>
+            <h3>{{ __('lumenDemo::translations.tr_melis_lumen_table1_heading_songs_head_album')  }}</h3>
             <br>
             <p>{{ __('lumenDemo::translations.tr_melis_lumen_album_header') }}</p>
         </div>

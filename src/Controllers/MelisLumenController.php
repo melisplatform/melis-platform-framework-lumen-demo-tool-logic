@@ -155,16 +155,15 @@ class MelisLumenController extends BaseController
         // id
         $id = null;
         // make a validator for the request parameters
-        // zend translator
-        /** @var \Zend\Mvc\I18n\Translator $zendTranslator */
-        $zendTranslator = app('ZendTranslator');
         $validator = Validator::make($requestParams,[
             'alb_name' => 'required',
-            'alb_song_num' => 'required|integer'
+            'alb_song_num' => 'required|integer',
+            'alb_date' => 'required|date'
         ],[
-            'alb_song_num.integer' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_songs_not_int'),
+            'alb_song_num.integer' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_not_int'),
             'alb_song_num.required' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty'),
             'alb_name.required' => __($this->transNamespace .'::translations.tr_melis_lumen_notification_empty'),
+            'alb_date.required' => __($this->transNamespace .'::translations.tr_melis_lumen_notification_empty'),
 //            'alb_name.regex' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty_name_regex'),
         ]);
         // validate inputed data
@@ -177,6 +176,9 @@ class MelisLumenController extends BaseController
                 ],
                 'alb_song_num' => [
                     'label' => __($this->transNamespace . '::translations.tr_melis_lumen_table1_heading_songs')
+                ],
+                'alb_date' => [
+                    'label' => 'Date'
                 ]
             ];
             // asigning label
@@ -221,8 +223,6 @@ class MelisLumenController extends BaseController
                 // set message
                 $message = "tr_melis_lumen_notification_message_upate_ok";
             } else {
-                // include date
-                $requestParams['alb_date'] = date('Y-m-d h:i:s');
                 // save album data
                 $id = $lumenDemoToolLogicSvc->saveAlbumData($requestParams)['id'];
                 // set message
@@ -256,7 +256,7 @@ class MelisLumenController extends BaseController
         // success status
         $success = false;
         // default message
-        $message = "Unable to saved";
+        $message = "Unable to delete";
         // default title
         $title = "tr_melis_lumen_notification_title";
         // get all request parameters

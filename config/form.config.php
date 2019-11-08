@@ -38,13 +38,12 @@ return [
             ],
             [
                 'type' => 'text',
-                'hideNoData' => true,
                 'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_date tooltip"),
                 'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_date"),
                 'attributes' => [
                     'name' => 'alb_date',
-                    'class' => 'form-control',
-                    'disabled' => true
+                    'class' => "form-control album_date",
+                    'required' => true,
                 ]
             ],
 //            [
