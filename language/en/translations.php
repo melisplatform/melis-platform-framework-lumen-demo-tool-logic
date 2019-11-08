@@ -17,8 +17,15 @@ return [
     'tr_melis_lumen_modal_edit_title' => 'Edit album',
     'tr_common_close' => 'Close',
     'tr_common_save' => 'Save',
-
-    # modal
+    /*
+     * tool logic notification
+     * form errors messages
+     */
+    'tr_melis_lumen_notification_empty_name' => 'Please enter the album name',
+    'tr_melis_lumen_notification_empty_name_regex' => 'No special character(s) allowed',
+    'tr_melis_lumen_notification_songs_not_int' => 'Songs must be an integer',
+    'tr_melis_lumen_album_name_already_used' => 'Album name is already used',
+    // modal
     'tr_melis_lumen_modal_add_title' => 'Add album',
     'tr_melis_lumen_modal_edit_title' => 'Edit album',
     /*

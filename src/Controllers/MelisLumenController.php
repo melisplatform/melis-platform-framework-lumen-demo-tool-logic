@@ -143,9 +143,9 @@ class MelisLumenController extends BaseController
         // success status
         $success = false;
         // default message
-        $message = __($this->transNamespace . "::translations.tr_melis_lumen_notification_message_save_ko");
+        $message = "tr_melis_lumen_notification_message_save_ko";
         // default title
-        $title = __($this->transNamespace . "::translations.tr_melis_lumen_notification_title");
+        $title = "tr_melis_lumen_notification_title";
         // get all request parameters
         $requestParams = app('request')->request->all();
         // log type for melis logging system
@@ -276,7 +276,7 @@ class MelisLumenController extends BaseController
         if ($lumenDemoToolLogicSvc->deleteAlbum($albumId)) {
             $success = true;
             $icon = MelisCoreFlashMessengerService::INFO;
-            $message = "Successfully deleted";
+            $message = "tr_melis_lumen_notification_message_delete_ok";
         }
 
         // add to melis flash messenger

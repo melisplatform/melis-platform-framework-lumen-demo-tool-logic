@@ -17,7 +17,13 @@ return [
     'tr_melis_lumen_modal_edit_title' => 'Editer album',
     'tr_common_close' => 'Annuler',
     'tr_common_save' => 'Sauvegarder',
-
+    /*
+     * tool logic notification form errors
+     */
+    'tr_melis_lumen_notification_empty_name' => 'Please enter the album name',
+    'tr_melis_lumen_notification_empty_name_regex' => 'No special character(s) allowed',
+    'tr_melis_lumen_notification_songs_not_int' => 'Songs must be an integer',
+    'tr_melis_lumen_album_name_already_used' => 'Album name is already used',
     /*
      * modal text translations
      */
