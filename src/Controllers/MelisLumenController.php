@@ -160,9 +160,10 @@ class MelisLumenController extends BaseController
         $zendTranslator = app('ZendTranslator');
         $validator = Validator::make($requestParams,[
             'alb_name' => 'required|regex:/^[a-zA-Z0-9\s]*$/',
-            'alb_song_num' => 'integer'
+            'alb_song_num' => 'required|integer'
         ],[
             'alb_song_num.integer' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_songs_not_int'),
+            'alb_song_num.required' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty_song_num'),
             'alb_name.required' => __($this->transNamespace .'::translations.tr_melis_lumen_notification_empty_name'),
             'alb_name.regex' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty_name_regex'),
         ]);
@@ -202,6 +203,7 @@ class MelisLumenController extends BaseController
         }
         // check for errors
         if (empty($errors)) {
+
             // set to true
             $success = true;
             // set info icon for flash messeages

@@ -22,6 +22,7 @@ return [
      * form errors messages
      */
     'tr_melis_lumen_notification_empty_name' => 'Please enter the album name',
+    'tr_melis_lumen_notification_empty_song_num' => 'Please enter no. of songs',
     'tr_melis_lumen_notification_empty_name_regex' => 'No special character(s) allowed',
     'tr_melis_lumen_notification_songs_not_int' => 'Songs must be an integer',
     'tr_melis_lumen_album_name_already_used' => 'Album name is already used',

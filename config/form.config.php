@@ -28,11 +28,12 @@ return [
             ],
             [
                 'type' => 'text',
-                'label' => 'No of songs',
+                'label' => 'No. of songs',
                 'tooltip' => "Number of songs in the album",
                 'attributes' => [
                     'name' => 'alb_song_num',
                     'class' => 'form-control',
+                    'required' => true,
                 ]
             ],
             [
