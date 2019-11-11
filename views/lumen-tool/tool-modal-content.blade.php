@@ -22,13 +22,6 @@
                     <button type="submit" class="btn btn-success" id="btn-save-lumen-album"><i class="fa fa-save"></i>  <?= __('lumenDemo::translations.tr_common_save')?></button>
                 </div>
                 <div class="clearfix"></div>
-                <!-- Date picker -->
-                <script>
-                    $(".album_date").datepicker({
-                        language: "{{ app('translator')->getLocale() }}",
-                        format: "yyyy/mm/dd",
-                    });
-                </script>
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@ return array(
         ),
         'columns' => array(
             'alb_id' => array(
-                'text' => 'ID',
+                'text' => __('lumenDemo::translations.tr_melis_lumen_table1_heading_id'),
                 'css' => array('width' => '10%', 'padding-right' => '0'),
                 'sortable' => true,
             ),
@@ -39,7 +39,7 @@ return array(
                 'sortable' => true,
             ),
             'alb_date' => array(
-                'text' => 'Date',
+                'text' => __('lumenDemo::translations.tr_melis_lumen_table1_heading_date'),
                 'css' => array('width' => '30%', 'padding-right' => '0'),
                 'sortable' => true,
             ),

@@ -2,7 +2,7 @@
 <h3>{{ __('lumenDemo::translations.tr_melis_lumen_table1_heading_songs_head_language') }}</h3>
 <p>{{ __('lumenDemo::translations.tr_melis_lumen_second_header')  }}</p>
 <table class='table table-striped'>
-    <tr>
+    <tr style="border-color: #e61c23;background-color: #e61c23;">
         <th>ID</th>
         <th> {{ __('lumenDemo::translations.tr_melis_lumen_table1_heading_name') }}</th>
         <th>Locale</th>
