@@ -18,7 +18,7 @@ class MelisPluginLumenController
     public function renderMelisPugin()
     {
         // getting the view in this module
-        return view("$this->viewNamespace::plugins/melis-plugin", ['data' => MelisDemoAlbumTableLumen::all()]);
+        return view("$this->viewNamespace::plugins/melis-plugin", ['data' => MelisDemoAlbumTableLumen::query()->orderBy('alb_id','desc')->get()]);
 
     }
 }

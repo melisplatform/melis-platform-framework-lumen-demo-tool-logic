@@ -17,7 +17,16 @@ use MelisPlatformFrameworkLumen\Service\MelisPlatformToolLumenService;
 
 class MelisLumenController extends BaseController
 {
+    /**
+     * default module namespace
+     * @var string
+     */
     private $viewNamespace = "MelisPlatformFrameworkLumenDemoToolLogic";
+    /**
+     * translation namespace
+     *
+     * @var string
+     */
     protected $transNamespace = "lumenDemo";
     /** @var MelisPlatformToolLumenService */
     protected $melisPlatformToolService;
