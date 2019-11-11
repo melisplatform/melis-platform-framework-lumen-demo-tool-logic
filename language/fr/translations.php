@@ -1,6 +1,24 @@
 <?php
 
 return [
+    /*
+     * Plugin translations
+     */
+    'tr_melis_platform_framework_lumen_demo_tool_plugin_name' => 'Lumen Demo Plugin',
+    'tr_melis_platform_framework_lumen_demo_tool_plugin_description' => 'Ce plugin affiche du contenu tiré de Lumen.',
+    'tr_PluginSection_melisplatformframeworklumendemotool' => 'Melis Platform Framework Lumen Demo Tool',
+    'tr_modal_plugin_no_parameters' => 'Aucun paramètre à éditer.',
+    /*
+     * flash messages
+     */
+    'tr_melis_lumen_notification_title' => 'Album',
+    'tr_melis_lumen_notification_title_delete' => 'Supprimer un album',
+    'tr_melis_lumen_notification_message_save_ko' => 'Impossible de sauvegarder l\'album',
+    'tr_melis_lumen_notification_message_save_ok' => 'Album sauvegardé avec succès',
+    'tr_melis_lumen_notification_message_update_ko' => 'Unable to update album',
+    'tr_melis_lumen_notification_message_upate_ok' => 'Album mis à jour avec succès',
+    'tr_melis_lumen_notification_message_delete_ok' => 'Album supprimé avec succès',
+    'tr_melis_lumen_notification_message_delete_message' => 'Etes-vous sûr de vouloir supprimer ce album ?',
     'tr_melis_lumen_main_heading' => 'Un embryon d\'outil fait en Lumen',
 //    'tr_melis_lumen_main_sub_heading' => 'Ce outil de demo a pour but de montrer comment utiliser le framework Lumen à l\'intérieur de Melis Platform, et ne pas être bloqué en ZF.',
     'tr_melis_lumen_main_sub_heading' => 'Cet outil a pour but de montrer comment utiliser le framework Lumen à l\'intérieur de Melis Platform, et ne pas être bloqué en ZF.',

@@ -157,13 +157,11 @@ class MelisLumenController extends BaseController
         // make a validator for the request parameters
         $validator = Validator::make($requestParams,[
             'alb_name' => 'required',
-            'alb_song_num' => 'required|integer',
-            'alb_date' => 'required|date'
+            'alb_song_num' => 'required|integer'
         ],[
             'alb_song_num.integer' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_not_int'),
             'alb_song_num.required' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty'),
             'alb_name.required' => __($this->transNamespace .'::translations.tr_melis_lumen_notification_empty'),
-            'alb_date.required' => __($this->transNamespace .'::translations.tr_melis_lumen_notification_empty'),
 //            'alb_name.regex' => __($this->transNamespace . '::translations.tr_melis_lumen_notification_empty_name_regex'),
         ]);
         // validate inputed data
@@ -177,9 +175,6 @@ class MelisLumenController extends BaseController
                 'alb_song_num' => [
                     'label' => __($this->transNamespace . '::translations.tr_melis_lumen_table1_heading_songs')
                 ],
-                'alb_date' => [
-                    'label' => 'Date'
-                ]
             ];
             // asigning label
             foreach ($errors as $errorKey => $errorVal) {
@@ -223,6 +218,7 @@ class MelisLumenController extends BaseController
                 // set message
                 $message = "tr_melis_lumen_notification_message_upate_ok";
             } else {
+                $requestParams['alb_date'] = date('Y-m-d');
                 // save album data
                 $id = $lumenDemoToolLogicSvc->saveAlbumData($requestParams)['id'];
                 // set message
