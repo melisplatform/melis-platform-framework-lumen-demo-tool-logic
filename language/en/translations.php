@@ -41,6 +41,7 @@ return [
      * form errors messages
      */
     'tr_melis_lumen_notification_empty' => 'This value should not be blank.',
+    'tr_melis_lumen_notification_not_int' => 'Numerical value only',
     'tr_melis_lumen_notification_empty_name_regex' => 'No special character(s) allowed',
     'tr_melis_lumen_notification_songs_not_int' => 'Numerical value only',
     'tr_melis_lumen_album_name_already_used' => 'Album name is already used',
