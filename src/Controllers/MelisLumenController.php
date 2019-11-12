@@ -11,9 +11,9 @@ use Laravel\Lumen\Application;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use MelisCore\Service\MelisCoreFlashMessengerService;
 use MelisPlatformFrameworkLumen\MelisServiceProvider;
+use MelisPlatformFrameworkLumen\Service\MelisPlatformToolService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Model\MelisDemoAlbumTableLumen;
 use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService as LogicService;
-use MelisPlatformFrameworkLumen\Service\MelisPlatformToolLumenService;
 
 class MelisLumenController extends BaseController
 {
@@ -28,13 +28,13 @@ class MelisLumenController extends BaseController
      * @var string
      */
     protected $transNamespace = "lumenDemo";
-    /** @var MelisPlatformToolLumenService */
+    /** @var MelisPlatformToolService */
     protected $melisPlatformToolService;
     /**
      * @var
      */
     protected $lumenToolService;
-    public function __construct(LogicService $lumenService, MelisPlatformToolLumenService $melisLumen)
+    public function __construct(LogicService $lumenService, MelisPlatformToolService $melisLumen)
     {
         $this->melisPlatformToolService = $melisLumen;
         $this->lumenToolService = $lumenService;
@@ -195,7 +195,7 @@ class MelisLumenController extends BaseController
         // Lumen demo tool logic service
         $lumenDemoToolLogicSvc = $this->lumenToolService;
         // Melis platform tool lumen service
-        //$lumenService          = new MelisPlatformToolLumenService();
+        //$lumenService          = new MelisPlatformToolService();
         // check for album name in the db
         $tmpData = $lumenDemoToolLogicSvc->getAlbumByName($requestParams['alb_name']);
         if(!empty($tmpData) && $tmpData->alb_id != ($requestParams['alb_id'] ?? null)) {
