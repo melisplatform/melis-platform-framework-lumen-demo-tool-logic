@@ -21,4 +21,6 @@ class MelisDemoAlbumTableLumen extends Model
      * @var string
      */
     protected $primaryKey = 'alb_id';
+
+    public $timestamps = false;
 }
