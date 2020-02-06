@@ -1,16 +1,20 @@
-<table class='table'>
-    <tr class="tr-table-header">
-        <th>Id</th>
-        <th> {{ __("lumenDemo::translations.tr_melis_lumen_table1_heading_name") }}</th>
-        <th>Date</th>
-        <th> {{ __("lumenDemo::translations.tr_melis_lumen_table1_heading_songs") }} </th>
-    </tr>
-    @foreach ($data as $idx => $val)
+<table class='table table-primary table-bordered table-striped'>
+    <thead>
         <tr>
-            <td>{{ $val->alb_id }}</td>
-            <td>{{ $val->alb_name }}</td>
-            <td>{{ $val->alb_date }}</td>
-            <td>{{ $val->alb_song_num}}</td>
+            <th>Id</th>
+            <th> {{ __("lumenDemo::translations.tr_melis_lumen_table1_heading_name") }}</th>
+            <th>Date</th>
+            <th> {{ __("lumenDemo::translations.tr_melis_lumen_table1_heading_songs") }} </th>
         </tr>
-    @endforeach
+    </thead>
+    <tbody>
+        @foreach ($data as $idx => $val)
+            <tr>
+                <td>{{ $val->alb_id }}</td>
+                <td>{{ $val->alb_name }}</td>
+                <td>{{ $val->alb_date }}</td>
+                <td>{{ $val->alb_song_num}}</td>
+            </tr>
+        @endforeach
+    </tbody>
 </table>
