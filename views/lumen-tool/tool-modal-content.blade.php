@@ -17,8 +17,8 @@
             <div class="main-content">
                 <?= $form ?>
                     <br>
-                <div align="right">
-                    <button data-dismiss="modal" class="btn btn-danger pull-left lumen-modal-close" ><i class="fa fa-times"></i> <?= __('lumenDemo::translations.tr_common_close')?></button>
+                <div class="footer-modal d-flex flex-row justify-content-between">
+                    <button data-dismiss="modal" class="btn btn-danger float-left lumen-modal-close" ><i class="fa fa-times"></i> <?= __('lumenDemo::translations.tr_common_close')?></button>
                     <button type="submit" class="btn btn-success" id="btn-save-lumen-album"><i class="fa fa-save"></i>  <?= __('lumenDemo::translations.tr_common_save')?></button>
                 </div>
                 <div class="clearfix"></div>
