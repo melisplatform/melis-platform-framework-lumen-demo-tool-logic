@@ -11,38 +11,41 @@ return [
         'elements' => [
             [
                 'type' => 'hidden',
+                'name' => 'alb_id',
                 'hideNoData' => true,
-                'attributes' => [
-                    'name' => 'alb_id',
-                ]
             ],
             [
                 'type' => 'text',
-                'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_name"),
-                'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_name tooltip"),
+                'name' => 'alb_name',
+                'options' => [
+                    'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_name"),
+                    'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_name tooltip"),
+                ],
                 'attributes' => [
-                    'name' => 'alb_name',
                     'class' => 'form-control',
                     'required' => true,
                 ]
             ],
             [
                 'type' => 'text',
-                'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_songs"),
-                'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_songs tooltip"),
+                'name' => 'alb_song_num',
+                'options' => [
+                    'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_songs"),
+                    'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_songs tooltip"),
+                ],
                 'attributes' => [
-                    'name' => 'alb_song_num',
                     'class' => 'form-control',
                     'required' => true,
                 ]
             ],
             [
-                'type' => 'text',
-                'hideNoData' => true,
-                'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_date tooltip"),
-                'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_date"),
+                'type' => 'hidden',
+                'name' => 'alb_date',
+                'options' => [
+                    'tooltip' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_date tooltip"),
+                    'label' => __("lumenDemo::translations.tr_melis_lumen_table1_heading_date"),
+                ],
                 'attributes' => [
-                    'name' => 'alb_date',
                     'class' => "form-control album_date",
                     'disabled' => true
                 ]

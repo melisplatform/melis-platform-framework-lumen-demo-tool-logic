@@ -10,7 +10,7 @@
         </div>
     </div>
     {{-- album list --}}
-    <?= app('melisdatatable')->createTable(config('album_table_config')['table']) ?>
+    <?= app('ZendServiceManager')->get('ViewHelperManager')->get('melisdatatable')->createTable(config('album_table_config')['table']) ?>
     @include($namespace . "::lumen-tool/tool-language-list",$coreLang)
     <!-- temp modal -->
     @include($namespace . "::lumen-tool/temp-modal")
