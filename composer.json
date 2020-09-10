@@ -24,8 +24,7 @@
         "module"
     ],
     "require": {
-        "melisplatform/melis-platform-framework-lumen-demo-tool": "*",
-        "laminas/laminas-dependency-plugin": "^1.0"
+        "melisplatform/melis-platform-framework-lumen-demo-tool": "*"
     },
     "autoload": {
         "psr-4": {
