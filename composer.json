@@ -1,4 +1,4 @@
- {
+{
     "name": "melisplatform/melis-platform-framework-lumen-demo-tool-logic",
     "description": "Melis Platform Framework Lumen Demo Tool Logic module",
     "type": "melisplatform-module",
@@ -24,17 +24,17 @@
         "module"
     ],
     "require" : {
-        "melisplatform/melis-platform-framework-lumen-demo-tool" : "^3.2"
+        "melisplatform/melis-platform-framework-lumen-demo-tool" : "^4.0"
     },
     "autoload": {
         "psr-4": {
             "MelisPlatformFrameworkLumenDemoToolLogic\\": "src/",
-            "App\\" : [
+            "App\\": [
                 "../../../thirdparty/Lumen/app/"
             ]
         }
-     },
-     "config": {
-         "optimize-autoloader": true
-     }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
 }

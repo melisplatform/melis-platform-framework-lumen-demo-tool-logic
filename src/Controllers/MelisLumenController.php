@@ -46,7 +46,7 @@ class MelisLumenController extends BaseController
     public function renderMelisLumen()
     {
         // get zend service manager
-        $zendServiceManager = app('ZendServiceManager');
+        $zendServiceManager = app('LaminasServiceManager');
 
         // get melis cms news service from melis-platform
         /** @var \MelisCore\Model\Tables\MelisLangTable $melisCoreLang */

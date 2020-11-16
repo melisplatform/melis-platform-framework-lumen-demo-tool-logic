@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use MelisPlatformFrameworkLumen\MelisServiceProvider;
 use MelisPlatformFrameworkLumenDemoToolLogic\Serivce\MelisPlatformFrameworkLumenDemoToolLogicService;
 use MelisPlatformFrameworkLumenDemoToolLogic\Service\LumenDemoToolLogicService;
-use Zend\Session\Container;
+use Laminas\Session\Container;
 
 class LumenDemoToolLogicProvider extends ServiceProvider
 {
@@ -53,7 +53,7 @@ class LumenDemoToolLogicProvider extends ServiceProvider
     {
         // table columns
         foreach ($config['table']['columns'] as $field => $val) {
-            $config['table']['columns'][$field]['text'] = app('ZendTranslator')->translate($val['text']);
+            $config['table']['columns'][$field]['text'] = app('LaminasTranslator')->translate($val['text']);
         }
         // set config
         Config::set('album_table_config', $config);
