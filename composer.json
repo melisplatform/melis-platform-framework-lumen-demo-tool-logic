@@ -23,8 +23,8 @@
         "zf2",
         "module"
     ],
-    "require" : {
-        "melisplatform/melis-platform-framework-lumen-demo-tool" : "^4.0"
+    "require": {
+        "melisplatform/melis-platform-framework-lumen-demo-tool": "^5.0"
     },
     "autoload": {
         "psr-4": {
